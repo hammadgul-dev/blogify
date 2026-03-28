@@ -3,6 +3,7 @@ import Home from "./Pages/Home"
 import Auth from "./Pages/Auth"
 import AdminLayout from "./Admin/Components/AdminLayout"
 import Dashboard from "./Admin/Pages/Dashboard"
+import AddBlog from "./Admin/Pages/AddBlog"
 
 let routes = createBrowserRouter([
     {
@@ -19,6 +20,7 @@ let routes = createBrowserRouter([
         children: [
             { index: true, element: <Dashboard /> },
             { path: "dashboard", element: <Dashboard /> },
+            { path: "add-blog", element: <AddBlog /> },
         ]
     },
 ])

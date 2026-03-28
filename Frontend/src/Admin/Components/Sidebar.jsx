@@ -5,8 +5,11 @@ import { MdEditDocument } from "react-icons/md";
 import { FaComments } from "react-icons/fa";
 import { MdManageAccounts } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
+    let navigate = useNavigate()
+
     return (
         <div className={style["sidebar"]}>
             <div className={style["sidebar-top"]}>
@@ -16,7 +19,7 @@ function Sidebar() {
                 </div>
                 <div className={style["sidebar-item"]}>
                     <MdAddBox />
-                    <span>Add Blogs</span>
+                    <span onClick={()=> navigate("add-blog")}>Add Blogs</span>
                 </div>
                 <div className={style["sidebar-item"]}>
                     <MdEditDocument />
