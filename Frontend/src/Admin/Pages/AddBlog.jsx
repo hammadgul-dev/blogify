@@ -1,5 +1,5 @@
 import style from "../Pages Style/AddBlog.module.css"
-import { MdCloudUpload } from "react-icons/md";
+import { LuCloudUpload } from "react-icons/lu";
 import { BsStars } from "react-icons/bs";
 
 function AddBlog() {
@@ -13,7 +13,7 @@ function AddBlog() {
                         <button className={style["ai-img-btn"]}><BsStars /> Generate with AI</button>
                     </div>
                     <div className={style["upload-box"]}>
-                        <MdCloudUpload />
+                        <LuCloudUpload />
                         <span>Upload</span>
                     </div>
                 </div>

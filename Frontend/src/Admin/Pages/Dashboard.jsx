@@ -1,6 +1,6 @@
 import style from "../Pages Style/Dashboard.module.css"
 import { MdOutlinePublish } from "react-icons/md";
-import { MdUnpublished } from "react-icons/md";
+import { MdOutlineUnpublished } from "react-icons/md";
 
 const tempBlogs = [
     { id: 1, title: "The Rise of Artificial Intelligence", date: "Wed Mar 26 2026", status: "Published" },
@@ -22,7 +22,7 @@ function Dashboard() {
                     </div>
                 </div>
                 <div className={style["stat-card"]}>
-                    <span><MdUnpublished /></span>
+                    <span><MdOutlineUnpublished /></span>
                     <div className={style["stat-info"]}>
                         <h3>UnPublish Blogs</h3>
                         <p>10</p>
