@@ -1,0 +1,139 @@
+.auth-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    border: 2px solid red;
+}
+
+.auth-card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 36px;
+    border-radius: 16px;
+    border: 1px solid gray;
+}
+
+.auth-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+}
+
+.auth-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.auth-logo svg {
+    font-size: 22px;
+}
+
+.auth-logo h2 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.auth-header h1 {
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.auth-header p {
+    font-size: 13px;
+}
+
+.auth-tabs {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid gray;
+    overflow: hidden;
+}
+
+.auth-tabs button {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 0;
+    border: none;
+    background: transparent;
+}
+
+.auth-tabs .active-tab {
+    border-radius: 8px;
+    border: 1px solid gray;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid gray;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: 1px solid gray;
+    margin-top: 4px;
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 28px 20px;
+    }
+
+    .auth-header h1 {
+        font-size: 20px;
+    }
+
+    .auth-tabs button {
+        font-size: 13px;
+        padding: 9px;
+    }
+
+    .form-group input {
+        padding: 9px 12px;
+        font-size: 13px;
+    }
+
+    .submit-btn {
+        padding: 11px;
+        font-size: 14px;
+    }
+}

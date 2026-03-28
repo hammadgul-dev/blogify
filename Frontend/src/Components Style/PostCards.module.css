@@ -1,0 +1,69 @@
+.post-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.post-img {
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.post-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.post-category {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid gray;
+    align-self: flex-start;
+}
+
+.post-title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.post-subtitle {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .post-title {
+        font-size: 15px;
+    }
+
+    .post-subtitle {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .post-img {
+        aspect-ratio: 16/9;
+    }
+
+    .post-title {
+        font-size: 15px;
+    }
+
+    .post-subtitle {
+        font-size: 12px;
+    }
+}
