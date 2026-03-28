@@ -101,17 +101,24 @@
 .actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 12px;
+    width: 160px;
 }
 
 .delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    padding: 4px 8px;
+    padding: 0;
     font-size: 12px;
     border: 1px solid gray;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 922px) {
     .stat-card {
         min-width: 160px;
         padding: 16px 20px;
@@ -123,6 +130,28 @@
 
     .stat-info p {
         font-size: 22px;
+    }
+
+    .table th:nth-child(1),
+    .table td:nth-child(1),
+    .table th:nth-child(3),
+    .table td:nth-child(3),
+    .table th:nth-child(4),
+    .table td:nth-child(4) {
+        display: none;
+    }
+
+    .table th:nth-child(2),
+    .table td:nth-child(2) {
+        width: 100%;
+    }
+
+    .actions {
+        width: auto;
+    }
+
+    .actions button:first-child {
+        display: none;
     }
 }
 

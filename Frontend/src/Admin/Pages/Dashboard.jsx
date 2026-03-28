@@ -54,9 +54,11 @@ function Dashboard() {
                                             {blog.status}
                                         </span>
                                     </td>
-                                    <td className={style["actions"]}>
-                                        <button>{blog.status === "Published" ? "Unpublish" : "Publish"}</button>
-                                        <button className={style["delete-btn"]}>✕</button>
+                                    <td>
+                                        <div className={style["actions"]}>
+                                            <button>{blog.status === "Published" ? "Unpublish" : "Publish"}</button>
+                                            <button className={style["delete-btn"]}>✕</button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
