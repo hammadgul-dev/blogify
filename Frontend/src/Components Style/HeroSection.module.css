@@ -1,122 +1,113 @@
-.auth-page {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-height: 100vh;
-    padding: 20px;
-}
-
-.auth-card {
+.hero-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+    gap: 30px;
+    padding: 80px 40px;
     width: 100%;
-    max-width: 400px;
-    padding: 36px 32px;
-    border-radius: 16px;
+    text-align: center;
+}
+
+.hero-msg {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 16px;
+    border-radius: 20px;
     border: 1px solid gray;
 }
 
-.auth-logo {
+.hero-msg p {
     display: flex;
     align-items: center;
     gap: 8px;
+    font-size: 13px;
 }
 
-.auth-logo svg {
-    font-size: 22px;
+.hero-msg span {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
 }
 
-.auth-logo h2 {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.auth-card h1 {
-    font-size: 22px;
+.hero-heading h1 {
+    font-size: 56px;
     font-weight: 800;
+    line-height: 1.15;
+    max-width: 700px;
 }
 
-.auth-tabs {
+.hero-subtitle {
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 520px;
+}
+
+.search-box {
     display: flex;
     align-items: center;
     width: 100%;
-    border-radius: 10px;
+    max-width: 500px;
     border: 1px solid gray;
+    border-radius: 10px;
     overflow: hidden;
 }
 
-.auth-tabs button {
+.search-box input {
     flex: 1;
-    padding: 10px;
+    padding: 11px 16px;
     font-size: 14px;
-    font-weight: 600;
+    border: none;
+    min-width: 0;
+}
+
+.search-box button {
+    padding: 11px 22px;
+    font-size: 14px;
     border-radius: 0;
     border: none;
-    background: transparent;
+    border-left: 1px solid gray;
+    white-space: nowrap;
 }
 
-.auth-tabs .active-tab {
-    border-radius: 8px;
-    border: 1px solid gray;
-}
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 60px 24px;
+        gap: 20px;
+    }
 
-.auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    width: 100%;
-}
+    .hero-heading h1 {
+        font-size: 38px;
+    }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    width: 100%;
-}
+    .hero-subtitle {
+        font-size: 15px;
+        max-width: 100%;
+    }
 
-.form-group label {
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 10px 14px;
-    font-size: 14px;
-    border-radius: 8px;
-    border: 1px solid gray;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 11px;
-    font-size: 15px;
-    font-weight: 700;
-    border-radius: 10px;
-    border: 1px solid gray;
-    margin-top: 2px;
+    .search-box {
+        max-width: 100%;
+    }
 }
 
 @media (max-width: 480px) {
-    .auth-card {
-        padding: 28px 18px;
-        gap: 16px;
+    .hero-section {
+        padding: 40px 16px;
+        gap: 35px;
     }
 
-    .auth-card h1 {
-        font-size: 20px;
+    .hero-heading h1 {
+        font-size: 30px;
     }
 
-    .form-group input {
-        padding: 9px 12px;
-        font-size: 16px;
+    .hero-msg p {
+        font-size: 12px;
     }
 
-    .submit-btn {
-        padding: 10px;
-        font-size: 14px;
+    .search-box input,
+    .search-box button {
+        padding: 10px 14px;
+        font-size: 13px;
     }
 }
