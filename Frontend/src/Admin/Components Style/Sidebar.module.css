@@ -4,9 +4,8 @@
     justify-content: space-between;
     width: 220px;
     min-width: 220px;
-    min-height: 100vh;
     padding: 24px 12px;
-    border-right: 1px solid gray;
+    border: 1px solid gray;
 }
 
 .sidebar-top {
