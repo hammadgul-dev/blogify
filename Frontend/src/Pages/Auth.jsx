@@ -45,12 +45,6 @@ function Auth() {
                         <label>Password</label>
                         <input type="password" placeholder="••••••••" />
                     </div>
-                    {/* {!isLogin && (
-                        <div className={style["form-group"]}>
-                            <label>Confirm Password</label>
-                            <input type="password" placeholder="••••••••" />
-                        </div>
-                    )} */}
                     <button className={style["submit-btn"]}>
                         {isLogin ? "Login" : "Sign Up"}
                     </button>
