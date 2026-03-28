@@ -1,4 +1,3 @@
-import Auth from "./Auth"
 import Footer from "../Components/Footer"
 import HeroSection from "../Components/HeroSection"
 import Navbar from "../Components/Navbar"
@@ -8,12 +7,11 @@ import PostsFilters from "../Components/PostsFilters"
 function Home() {
     return (
         <>
-            {/* <Navbar />
+            <Navbar />
             <HeroSection />
             <PostsFilters />
             <PostLists />
-            <Footer /> */}
-            <Auth />
+            <Footer />
         </>
     )
 }
