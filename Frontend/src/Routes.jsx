@@ -4,6 +4,7 @@ import Auth from "./Pages/Auth"
 import AdminLayout from "./Admin/Components/AdminLayout"
 import Dashboard from "./Admin/Pages/Dashboard"
 import AddBlog from "./Admin/Pages/AddBlog"
+import Comments from "./Admin/Pages/Comments"
 
 let routes = createBrowserRouter([
     {
@@ -21,6 +22,7 @@ let routes = createBrowserRouter([
             { index: true, element: <Dashboard /> },
             { path: "dashboard", element: <Dashboard /> },
             { path: "add-blog", element: <AddBlog /> },
+            { path : "comments" , element : <Comments /> }
         ]
     },
 ])
