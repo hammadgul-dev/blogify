@@ -1,4 +1,5 @@
 import style from "../Pages Style/EditBlogs.module.css"
+import { useNavigate } from "react-router-dom"
 
 const tempBlogs = [
     { id: 1, title: "The Rise of Artificial Intelligence in Modern Technology" },
@@ -7,14 +8,11 @@ const tempBlogs = [
     { id: 4, title: "Taxes on Luxury Houses" },
     { id: 5, title: "Maximizing Returns in Startup" },
     { id: 6, title: "Does AI Replace Developers" },
-    { id: 6, title: "Does AI Replace Developers" },
-    { id: 6, title: "Does AI Replace Developers" },
-    { id: 6, title: "Does AI Replace Developers" },
-    { id: 6, title: "Does AI Replace Developers" },
-    { id: 6, title: "Does AI Replace Developers" },
 ]
 
 function EditBlogs() {
+    const navigate = useNavigate()
+
     return (
         <div className={style["editblogs"]}>
             <div className={style["editblogs-wrapper"]}>
@@ -23,7 +21,12 @@ function EditBlogs() {
                     {tempBlogs.map((blog) => (
                         <div key={blog.id} className={style["blog-row"]}>
                             <p><strong>Blog :</strong> {blog.title}</p>
-                            <button className={style["edit-btn"]}>Edit</button>
+                            <button
+                                className={style["edit-btn"]}
+                                onClick={() => navigate(`/admin/edit-blog/${blog.id}`)}
+                            >
+                                Edit
+                            </button>
                         </div>
                     ))}
                 </div>

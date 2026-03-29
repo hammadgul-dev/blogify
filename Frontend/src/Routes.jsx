@@ -25,6 +25,7 @@ let routes = createBrowserRouter([
             { path: "add-blog", element: <AddBlog /> },
             { path : "comments" , element : <Comments /> },
             { path : "edit-blog" , element : <EditBlogs /> },
+            { path: "edit-blog/:id", element: <EditBlog /> },
         ]
     },
 ])

@@ -1,8 +1,8 @@
 import style from "../Pages Style/AddBlog.module.css"
-import { LuCloudUpload } from "react-icons/lu";
+import { MdCloudUpload } from "react-icons/md";
 import { BsStars } from "react-icons/bs";
 
-function AddBlog() {
+function AddBlog({ isEdit = false }) {
     return (
         <div className={style["addblog"]}>
             <div className={style["addblog-card"]}>
@@ -13,7 +13,7 @@ function AddBlog() {
                         <button className={style["ai-img-btn"]}><BsStars /> Generate with AI</button>
                     </div>
                     <div className={style["upload-box"]}>
-                        <LuCloudUpload />
+                        <MdCloudUpload />
                         <span>Upload</span>
                     </div>
                 </div>
@@ -58,7 +58,9 @@ function AddBlog() {
                 </div>
 
                 <div className={style["submit-row"]}>
-                    <button className={style["submit-btn"]}>Add Blog</button>
+                    <button className={style["submit-btn"]}>
+                        {isEdit ? "Update Blog" : "Add Blog"}
+                    </button>
                 </div>
 
             </div>
