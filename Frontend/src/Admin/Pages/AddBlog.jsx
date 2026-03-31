@@ -1,7 +1,6 @@
 import style from "../Pages Style/AddBlog.module.css"
 import { MdCloudUpload } from "react-icons/md";
 import { BsStars } from "react-icons/bs";
-import { Editor } from "@tinymce/tinymce-react";
 
 function AddBlog({ isEdit = false }) {
     return (
@@ -30,19 +29,10 @@ function AddBlog({ isEdit = false }) {
                 </div>
 
                 <div className={style["form-group"]}>
-                    <div className={style["label-row"]}>
-                        <label>Blog Description</label>
+                    <label>Blog Description</label>
+                    <div className={style["textarea-wrapper"]}>
+                        <textarea rows={8} placeholder="Write your blog here..." />
                         <button className={style["ai-btn"]}><BsStars /> Generate with AI</button>
-                    </div>
-                    <div className={style["editor-wrapper"]}>
-                        <Editor
-                            init={{
-                                height: 300,
-                                menubar: false,
-                                plugins: ['lists', 'link'],
-                                toolbar: 'bold italic underline | bullist numlist | link',
-                            }}
-                        />
                     </div>
                 </div>
 
