@@ -1,8 +1,23 @@
 import style from "../Pages Style/AddBlog.module.css"
 import { MdCloudUpload } from "react-icons/md";
 import { BsStars } from "react-icons/bs";
+import { useState } from "react";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
+
+const modules = {
+    toolbar: [
+        [{ header: [1, 2, 3, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        ['link'],
+        ['clean']
+    ]
+}
 
 function AddBlog({ isEdit = false }) {
+    const [content, setContent] = useState("")
+
     return (
         <div className={style["addblog"]}>
             <div className={style["addblog-card"]}>
@@ -30,10 +45,19 @@ function AddBlog({ isEdit = false }) {
 
                 <div className={style["form-group"]}>
                     <label>Blog Description</label>
-                    <div className={style["textarea-wrapper"]}>
-                        <textarea rows={8} placeholder="Write your blog here..." />
-                        <button className={style["ai-btn"]}><BsStars /> Generate with AI</button>
+                    <div className={style["editor-wrapper"]}>
+                        <div className={style["toolbar-scroll"]}>
+                            <ReactQuill
+                                theme="snow"
+                                value={content}
+                                onChange={setContent}
+                                modules={modules}
+                                placeholder="Write your blog here..."
+                                className={style["editor"]}
+                            />
+                        </div>
                     </div>
+                    <button className={style["ai-btn"]}><BsStars /> Generate with AI</button>
                 </div>
 
                 <div className={style["wrapper"]}>
