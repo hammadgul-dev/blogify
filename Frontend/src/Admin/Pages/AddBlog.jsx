@@ -1,8 +1,12 @@
 import style from "../Pages Style/AddBlog.module.css"
 import { MdCloudUpload } from "react-icons/md";
 import { BsStars } from "react-icons/bs";
+import { useState } from "react";
+import { DefaultEditor } from "react-simple-wysiwyg";
 
 function AddBlog({ isEdit = false }) {
+    const [content, setContent] = useState("")
+
     return (
         <div className={style["addblog"]}>
             <div className={style["addblog-card"]}>
@@ -29,10 +33,16 @@ function AddBlog({ isEdit = false }) {
                 </div>
 
                 <div className={style["form-group"]}>
-                    <label>Blog Description</label>
-                    <div className={style["textarea-wrapper"]}>
-                        <textarea rows={8} placeholder="Write your blog here..." />
+                    <div className={style["label-row"]}>
+                        <label>Blog Description</label>
                         <button className={style["ai-btn"]}><BsStars /> Generate with AI</button>
+                    </div>
+                    <div className={style["editor-wrapper"]}>
+                        <DefaultEditor
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                            placeholder="Write your blog here..."
+                        />
                     </div>
                 </div>
 
