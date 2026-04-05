@@ -1,7 +1,7 @@
 import style from "../Pages Style/BlogDetail.module.css"
 import Navbar from "../Components/Navbar"
 import img1 from "../assets/1.jpg"
-// import CommentSection from "../Components/CommentSection"
+import PostComment from "../Components/PostComment"
 
 function BlogDetail() {
     return (
@@ -23,6 +23,7 @@ function BlogDetail() {
                     Lorem ipsum dolor sit amet consectetur adipisicing elLorem ipsum dolor sit amet consectetur adipisicing elLorem ipsum dolor sit amet consectetur adipisicing elLorem ipsum dolor sit amet consectetur adipisicing elLorem ipsum dolor sit amet consectetur adipisicing elLorem ipsum dolor sit amet consectetur adipisicing el
                 </p>
             </div>
+            <PostComment />
         </div>
     )
 }
