@@ -19,29 +19,29 @@ function Sidebar() {
     return (
         <div className={style["sidebar"]}>
             <div className={style["sidebar-top"]}>
-                <div className={style["sidebar-item"]}>
+                <div className={style["sidebar-item"]} onClick={() => navigate("dashboard")}>
                     <RxDashboard />
                     <span>Dashboard</span>
                 </div>
-                <div className={style["sidebar-item"]}>
+                <div className={style["sidebar-item"]} onClick={() => navigate("add-blog")}>
                     <MdOutlineLibraryAdd />
-                    <span onClick={()=> navigate("add-blog")}>Add Blogs</span>
+                    <span>Add Blogs</span>
                 </div>
-                <div className={style["sidebar-item"]}>
+                <div className={style["sidebar-item"]} onClick={() => navigate("edit-blog")}>
                     <TbEdit />
                     <span>Edit Blogs</span>
                 </div>
-                <div className={style["sidebar-item"]}>
+                <div className={style["sidebar-item"]} onClick={() => navigate("comments")}>
                     <FaRegCommentDots />
                     <span>Comments</span>
                 </div>
             </div>
             <div className={style["sidebar-bottom"]}>
-                <div className={style["sidebar-item"]}>
+                <div className={style["sidebar-item"]} onClick={() => navigate("profile")}>
                     <MdManageAccounts />
                     <span>Profile Setting</span>
                 </div>
-                <div className={style["sidebar-item"]}>
+                <div className={style["sidebar-item"]} onClick={() => navigate("trash")}>
                     <AiOutlineDelete />
                     <span>Trash Bin</span>
                 </div>
