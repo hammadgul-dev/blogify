@@ -44,15 +44,15 @@ function Auth() {
                         <label>Password</label>
                         <input type="password" placeholder="••••••••" />
                     </div>
-                    <button className={style["submit-btn"]}>
-                        {isLogin ? "Login" : "Sign Up"}
+                    <button className={style["google-btn"]}>
+                        <FcGoogle />
+                        {isLogin ? "Login with Google" : "Sign Up with Google"}
                     </button>
                     <div className={style["divider"]}>
                         <span>or</span>
                     </div>
-                    <button className={style["google-btn"]}>
-                        <FcGoogle />
-                        {isLogin ? "Login with Google" : "Sign Up with Google"}
+                    <button className={style["submit-btn"]}>
+                        {isLogin ? "Login" : "Sign Up"}
                     </button>
                 </div>
             </div>
