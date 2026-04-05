@@ -1,6 +1,7 @@
 import { useState } from "react"
 import style from "../Pages Style/Auth.module.css"
 import { FaBlog } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 function Auth() {
     const [isLogin, setIsLogin] = useState(false)
@@ -12,9 +13,7 @@ function Auth() {
                     <FaBlog />
                     <h2>Blogify</h2>
                 </div>
-
                 <h1>{isLogin ? "Welcome Back" : "Create Account"}</h1>
-
                 <div className={style["auth-tabs"]}>
                     <button
                         className={!isLogin ? style["active-tab"] : ""}
@@ -47,6 +46,13 @@ function Auth() {
                     </div>
                     <button className={style["submit-btn"]}>
                         {isLogin ? "Login" : "Sign Up"}
+                    </button>
+                    <div className={style["divider"]}>
+                        <span>or</span>
+                    </div>
+                    <button className={style["google-btn"]}>
+                        <FcGoogle />
+                        {isLogin ? "Login with Google" : "Sign Up with Google"}
                     </button>
                 </div>
             </div>

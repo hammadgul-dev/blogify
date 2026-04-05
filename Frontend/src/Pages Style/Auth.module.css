@@ -57,6 +57,42 @@
     background: transparent;
 }
 
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: gray;
+}
+
+.divider span {
+    font-size: 12px;
+}
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 1px solid gray;
+}
+
+.google-btn svg {
+    font-size: 18px;
+}
+
 .auth-tabs .active-tab {
     border-radius: 8px;
     border: 1px solid gray;

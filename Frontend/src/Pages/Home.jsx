@@ -9,12 +9,12 @@ import BlogDetail from "./BlogDetail"
 function Home() {
     return (
         <>
-            {/* <Navbar />
+            <Navbar />
             <HeroSection />
             <PostsFilters />
-            <PostLists /> */}
-            <BlogDetail />
-            <Footer />
+            <PostLists />
+            <Footer /> 
+            {/* <BlogDetail /> */}
             {/* <AdminLayout /> */}
         </>
     )
