@@ -42,9 +42,10 @@ async function handleSignupForm(req, resp) {
     resp.status(201).json({
       message: "Signup Successfully",
       token: token,
-      newUser: { userName },
+      newUser: userName,
       userId: newUser._id,
     });
+
   } catch (e) {
     resp.status(500).json({ message: "Error Occur During Signup" });
   }
