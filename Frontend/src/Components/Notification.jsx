@@ -8,14 +8,14 @@ function Notification() {
   let message = useSelector((state) => state.notification.message);
 
   useEffect(() => {
-    // if (!message) return;
-    let timer = setTimeout(() => dispatch(clearMessage()), 3000);
+    if (!message) return;
+    let timer = setTimeout(() => dispatch(clearMessage()), 2500);
     return () => clearTimeout(timer);
   }, [message]);
 
-//   if (!message) return null;
+  if (!message) return null;
 
-  return <div className={`${style.notification}`}>this is message hi bro</div>;
+  return <div className={`${style.notification}`}>{message}</div>;
 }
 
 export default Notification;
