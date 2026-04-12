@@ -4,9 +4,12 @@ import { FaBlog } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
 import { setMessage } from "../Redux/Slice/NotificationSlice";
+import { useMutation } from "@tanstack/react-query";
+import { data, useNavigate } from "react-router-dom";
 
 function Auth() {
   let dispatch = useDispatch();
+  let navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   let [signInfo, setSignupInfo] = useState({
     userName: "",
@@ -30,7 +33,7 @@ function Auth() {
         return dispatch(setMessage("Password Is Required"));
       if (signInfo.userPassword.length < 8)
         return dispatch(setMessage("Password Too Short"));
-      // signup API call
+      signUpMutation.mutate(signInfo);
     } else {
       if (!loginInfo.userEmail && !loginInfo.userPassword)
         return dispatch(setMessage("All Fields Are Required"));
@@ -45,6 +48,30 @@ function Auth() {
       // login API call
     }
   }
+
+  let signUpMutation = useMutation({
+    mutationFn: async () => {
+      let apiResp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(signInfo),
+      });
+      let apiData = await apiResp.json()
+      if(!apiResp.ok)
+        throw new Error(apiData.message.message)
+      return apiData
+    },
+    onSuccess: (apiData) => {
+      localStorage.setItem("token", apiData.token);
+      localStorage.setItem("userName", apiData.newUser)
+      dispatch(setMessage(apiData.message));
+      let timer = setTimeout(() => navigate("/"), 700);
+      return clearTimeout(timer);
+    },
+    onError: (e) => {
+      dispatch(setMessage(e.message || "signUp Failed"));
+    },
+  });
 
   return (
     <div className={style["auth-page"]}>
