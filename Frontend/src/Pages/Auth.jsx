@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
 import { setMessage } from "../Redux/Slice/NotificationSlice";
 import { useMutation } from "@tanstack/react-query";
-import { data, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Auth() {
   let dispatch = useDispatch();
@@ -51,22 +51,24 @@ function Auth() {
 
   let signUpMutation = useMutation({
     mutationFn: async () => {
-      let apiResp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/signup`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(signInfo),
-      });
-      let apiData = await apiResp.json()
-      if(!apiResp.ok)
-        throw new Error(apiData.message)
-      return apiData
+      let apiResp = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/auth/signup`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(signInfo),
+        },
+      );
+      let apiData = await apiResp.json();
+      if (!apiResp.ok) throw new Error(apiData.message);
+      return apiData;
     },
     onSuccess: (apiData) => {
       localStorage.setItem("token", apiData.token);
-      localStorage.setItem("userName", apiData.newUser)
+      localStorage.setItem("userName", apiData.newUser);
       dispatch(setMessage(apiData.message));
-      let timer = setTimeout(() => navigate("/"), 700);
-      return clearTimeout(timer);
+      setSignupInfo({ userName: "", userEmail: "", userPassword: "" });
+      setTimeout(() => navigate("/admin", { replace: true }), 1200);
     },
     onError: (e) => {
       dispatch(setMessage(e.message || "signUp Failed"));
