@@ -58,7 +58,7 @@ function Auth() {
       });
       let apiData = await apiResp.json()
       if(!apiResp.ok)
-        throw new Error(apiData.message.message)
+        throw new Error(apiData.message)
       return apiData
     },
     onSuccess: (apiData) => {
