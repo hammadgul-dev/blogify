@@ -31,15 +31,11 @@ function Sidebar() {
                     <TbEdit />
                     <span>Edit Blogs</span>
                 </div>
+            </div>
+            <div className={style["sidebar-bottom"]}>
                 <div className={style["sidebar-item"]} onClick={() => navigate("comments")}>
                     <FaRegCommentDots />
                     <span>Comments</span>
-                </div>
-            </div>
-            <div className={style["sidebar-bottom"]}>
-                <div className={style["sidebar-item"]} onClick={() => navigate("profile")}>
-                    <MdManageAccounts />
-                    <span>Profile Setting</span>
                 </div>
                 <div className={style["sidebar-item"]} onClick={() => navigate("trash")}>
                     <AiOutlineDelete />

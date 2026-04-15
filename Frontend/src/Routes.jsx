@@ -6,7 +6,6 @@ import Dashboard from "./Admin/Pages/Dashboard"
 import AddBlog from "./Admin/Pages/AddBlog"
 import Comments from "./Admin/Pages/Comments"
 import EditBlogs from "./Admin/Pages/EditBlogs"
-import ProfileSetting from "./Admin/Pages/ProfileSetting"
 import TrashBin from "./Admin/Pages/TrashBin"
 
 let routes = createBrowserRouter([
@@ -28,7 +27,6 @@ let routes = createBrowserRouter([
             { path : "comments" , element : <Comments /> },
             { path : "edit-blog" , element : <EditBlogs /> },
             { path: "edit-blog/:id", element: <AddBlog /> },
-            { path: "profile", element: <ProfileSetting /> },
             { path: "trash", element: <TrashBin /> }
         ]
     },
