@@ -68,7 +68,7 @@ function Auth() {
       localStorage.setItem("userName", apiData.newUser);
       dispatch(setMessage(apiData.message));
       setSignupInfo({ userName: "", userEmail: "", userPassword: "" });
-      setTimeout(() => navigate("/admin", { replace: true }), 1200);
+      setTimeout(() => navigate("/admin/dashboard", { replace: true }), 1200);
     },
     onError: (e) => {
       dispatch(setMessage(e.message || "signUp Failed"));
