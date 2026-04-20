@@ -1,12 +1,13 @@
 import style from "../Pages Style/AddBlog.module.css"
 import {MdCloudUpload} from "react-icons/md"
 import {BsStars} from "react-icons/bs"
-import {useState} from "react"
+import {useState, useRef} from "react"
 import ReactQuill from "react-quill-new"
 import "react-quill-new/dist/quill.snow.css"
-import {useRef} from "react"
+import {useDispatch} from "react-redux"
+import {setMessage} from "../../Redux/Slice/NotificationSlice"
 
-const modules = {
+let modules = {
   toolbar: [
     [{header: [1, 2, 3, false]}],
     ["bold", "italic", "underline", "strike"],
@@ -17,16 +18,42 @@ const modules = {
 }
 
 function AddBlog({isEdit = false}) {
-  const [content, setContent] = useState("")
-  let [imgPreview, setImgPreview] = useState("")
+  let dispatch = useDispatch()
   let imgRef = useRef()
+  let [description, setDescription] = useState("")
+  let [imgPreview, setImgPreview] = useState("")
+  let [imgFile, setImgFile] = useState(null)
+  let [blogInfo, setBlogInfo] = useState({
+    title: "",
+    subtitle: "",
+    category: "",
+    publish: false,
+  })
 
   function handleFile(e) {
-    let fileReader = new FileReader()
-    fileReader.readAsDataURL(e.target.files[0])
-    fileReader.onload = () => {
-      setImgPreview(fileReader.result)
-    }
+    let file = e.target.files[0]
+    if (!file) return dispatch(setMessage("Files Not Found"))
+    setImgPreview(URL.createObjectURL(file))
+    setImgFile(file)
+  }
+
+  function handleSubmit() {
+    if (!imgFile) return dispatch(setMessage("Please upload a thumbnail"))
+    if (!blogInfo.title.trim()) return dispatch(setMessage("Title is required"))
+    if (!blogInfo.subtitle.trim())
+      return dispatch(setMessage("Subtitle is required"))
+    if (!description.trim())
+      return dispatch(setMessage("Blog description is required"))
+    if (!blogInfo.category)
+      return dispatch(setMessage("Please select a category"))
+
+    let formData = new FormData()
+    formData.append("thumbnail", imgFile)
+    formData.append("title", blogInfo.title.trim())
+    formData.append("subtitle", blogInfo.subtitle.trim())
+    formData.append("description", description.trim())
+    formData.append("category", blogInfo.category.trim().toLowerCase())
+    formData.append("isPublish", blogInfo.publish)
   }
 
   return (
@@ -63,12 +90,24 @@ function AddBlog({isEdit = false}) {
 
         <div className={style["form-group"]}>
           <label>Blog Title</label>
-          <input type="text" placeholder="Type here" />
+          <input
+            type="text"
+            placeholder="Type here"
+            value={blogInfo.title}
+            onChange={(e) => setBlogInfo({...blogInfo, title: e.target.value})}
+          />
         </div>
 
         <div className={style["form-group"]}>
           <label>Sub Title</label>
-          <input type="text" placeholder="Type here" />
+          <input
+            type="text"
+            placeholder="Type here"
+            value={blogInfo.subtitle}
+            onChange={(e) =>
+              setBlogInfo({...blogInfo, subtitle: e.target.value})
+            }
+          />
         </div>
 
         <div className={style["form-group"]}>
@@ -77,8 +116,8 @@ function AddBlog({isEdit = false}) {
             <div className={style["toolbar-scroll"]}>
               <ReactQuill
                 theme="snow"
-                value={content}
-                onChange={setContent}
+                value={description}
+                onChange={setDescription}
                 modules={modules}
                 placeholder="Write your blog here..."
                 className={style["editor"]}
@@ -93,7 +132,15 @@ function AddBlog({isEdit = false}) {
         <div className={style["wrapper"]}>
           <div className={style["form-group"]}>
             <label>Blog Category</label>
-            <select>
+            <select
+              value={blogInfo.category}
+              onChange={(e) =>
+                setBlogInfo({
+                  ...blogInfo,
+                  category: e.target.value,
+                })
+              }
+            >
               <option value="">Select category</option>
               <option value="tech">Tech</option>
               <option value="business">Business</option>
@@ -107,12 +154,19 @@ function AddBlog({isEdit = false}) {
 
           <div className={style["publish-row"]}>
             <label htmlFor="publish">Publish Now</label>
-            <input type="checkbox" id="publish" />
+            <input
+              type="checkbox"
+              id="publish"
+              checked={blogInfo.publish}
+              onChange={(e) =>
+                setBlogInfo({...blogInfo, publish: e.target.checked})
+              }
+            />
           </div>
         </div>
 
         <div className={style["submit-row"]}>
-          <button className={style["submit-btn"]}>
+          <button onClick={handleSubmit} className={style["submit-btn"]}>
             {isEdit ? "Update Blog" : "Add Blog"}
           </button>
         </div>
