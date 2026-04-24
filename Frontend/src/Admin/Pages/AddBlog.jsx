@@ -6,6 +6,7 @@ import ReactQuill from "react-quill-new"
 import "react-quill-new/dist/quill.snow.css"
 import {useDispatch} from "react-redux"
 import {setMessage} from "../../Redux/Slice/NotificationSlice"
+import {useMutation} from "@tanstack/react-query"
 
 let modules = {
   toolbar: [
@@ -54,7 +55,28 @@ function AddBlog({isEdit = false}) {
     formData.append("description", description.trim())
     formData.append("category", blogInfo.category.trim().toLowerCase())
     formData.append("isPublish", blogInfo.publish)
+    postFormData.mutate(formData)
   }
+
+  let postFormData = useMutation({
+    mutationFn: async (formData) => {
+      let apiResp = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/add-blog`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+          },
+          body: formData,
+        },
+      )
+      let apiData = await apiResp.json()
+      if (!apiResp.ok) throw apiData.message
+      return apiData
+    },
+    onSuccess: () => dispatch(setMessage("Blog added successfully!")),
+    onError: (e) => dispatch(setMessage(e || "Something Went Wrong")),
+  })
 
   return (
     <div className={style["addblog"]}>
