@@ -17,7 +17,7 @@ async function apiFetch(apiUrl, options = {}) {
     if (!apiResp.ok) throw apiData.message
     return apiData
   } catch (e) {
-    throw e.message || "Something Went Wrong"
+    throw e || "Something Went Wrong"
   }
 }
 
