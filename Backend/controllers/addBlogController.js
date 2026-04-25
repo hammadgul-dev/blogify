@@ -3,7 +3,7 @@ import addBlogModel from "../models/addBlogModel.js"
 
 async function handleAddBlog(req, resp) {
   try {
-    let {title, subtitle, description, category, isPublish} = req.body
+    let {title, subtitle, description, category} = req.body
     let file = req.file
     let userId = req.user.userId
 
@@ -39,7 +39,6 @@ async function handleAddBlog(req, resp) {
       subtitle,
       description,
       category,
-      isPublish: isPublish === "true",
     })
 
     return resp

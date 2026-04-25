@@ -28,7 +28,6 @@ function AddBlog({isEdit = false}) {
     title: "",
     subtitle: "",
     category: "",
-    publish: false,
   })
 
   function handleFile(e) {
@@ -54,7 +53,6 @@ function AddBlog({isEdit = false}) {
     formData.append("subtitle", blogInfo.subtitle.trim())
     formData.append("description", description.trim())
     formData.append("category", blogInfo.category.trim().toLowerCase())
-    formData.append("isPublish", blogInfo.publish)
     postFormData.mutate(formData)
   }
 
@@ -183,18 +181,6 @@ function AddBlog({isEdit = false}) {
               <option value="finance">Finance</option>
               <option value="career">Career</option>
             </select>
-          </div>
-
-          <div className={style["publish-row"]}>
-            <label htmlFor="publish">Publish Now</label>
-            <input
-              type="checkbox"
-              id="publish"
-              checked={blogInfo.publish}
-              onChange={(e) =>
-                setBlogInfo({...blogInfo, publish: e.target.checked})
-              }
-            />
           </div>
         </div>
 
