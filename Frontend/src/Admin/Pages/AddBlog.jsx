@@ -74,7 +74,18 @@ function AddBlog({isEdit = false}) {
       if (!apiResp.ok) throw apiData.message
       return apiData
     },
-    onSuccess: () => dispatch(setMessage("Blog added successfully!")),
+    onSuccess: () => {
+      dispatch(setMessage("Blog added successfully!"))
+      setBlogInfo({
+        title: "",
+        subtitle: "",
+        category: "",
+        publish: false,
+      })
+      setDescription("")
+      setImgFile(null)
+      setImgPreview("")
+    },
     onError: (e) => dispatch(setMessage(e || "Something Went Wrong")),
   })
 
