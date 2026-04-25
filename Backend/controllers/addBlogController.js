@@ -1,4 +1,4 @@
-import cloudinary from "../config/cloudinary.js"
+import {v2 as cloudinary} from "cloudinary"
 import addBlogModel from "../models/addBlogModel.js"
 
 async function handleAddBlog(req, resp) {
@@ -16,6 +16,12 @@ async function handleAddBlog(req, resp) {
       return resp.status(400).json({message: "Description is required"})
     if (!category)
       return resp.status(400).json({message: "Category is required"})
+
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    })
 
     let uploadResult = await new Promise((resolve, reject) => {
       cloudinary.uploader
