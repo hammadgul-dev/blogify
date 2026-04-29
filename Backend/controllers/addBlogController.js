@@ -1,5 +1,7 @@
 import {v2 as cloudinary} from "cloudinary"
 import addBlogModel from "../models/addBlogModel.js"
+import Groq from "groq-sdk"
+const groq = new Groq({apiKey: process.env.GROQ_API_KEY})
 
 async function handleAddBlog(req, resp) {
   try {
@@ -49,4 +51,26 @@ async function handleAddBlog(req, resp) {
   }
 }
 
-export {handleAddBlog}
+async function generateDescription(req, resp) {
+  try {
+    let {title} = req.body
+    if (!title) return resp.status(400).json({message: "Title is required"})
+
+    let completion = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      messages: [
+        {
+          role: "user",
+          content: `Write a detailed blog description for this title: "${title}". Only return the blog content, no extra text.`,
+        },
+      ],
+    })
+    console.log(completion)
+    let description = completion.choices[0].message.content
+    return resp.status(200).json({description})
+  } catch (e) {
+    return resp.status(500).json({message: "Failed To Generate Description"})
+  }
+}
+
+export {handleAddBlog, generateDescription}
