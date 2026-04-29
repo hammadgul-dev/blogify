@@ -1,6 +1,7 @@
 import {v2 as cloudinary} from "cloudinary"
 import addBlogModel from "../models/addBlogModel.js"
 import Groq from "groq-sdk"
+import authModel from "../models/userAuthModel.js"
 const groq = new Groq({apiKey: process.env.GROQ_API_KEY})
 
 async function handleAddBlog(req, resp) {
@@ -56,18 +57,25 @@ async function generateDescription(req, resp) {
     let {title} = req.body
     if (!title) return resp.status(400).json({message: "Title is required"})
 
+    let findingUser = await authModel.findById(req.user.userId)
+    if (findingUser.aiDescription >= 5)
+      return resp.status(400).json({message: "Limit Reached"})
     let completion = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
       messages: [
         {
           role: "user",
-          content: `Write a detailed blog description for this title: "${title}". Only return the blog content, no extra text.`,
+          content: `Write a detailed blog post for this title: "${title}". Format it with <h2> headings, <h3> subheadings, and <p> paragraphs. Return only valid HTML content, no extra text, no markdown.`,
         },
       ],
     })
-    console.log(completion)
     let description = completion.choices[0].message.content
-    return resp.status(200).json({description})
+    await authModel.findByIdAndUpdate(req.user.userId, {
+      $inc: {aiDescription: 1},
+    })
+    return resp
+      .status(200)
+      .json({message: "Description Generated!", description: description})
   } catch (e) {
     return resp.status(500).json({message: "Failed To Generate Description"})
   }
