@@ -1,3 +1,4 @@
+import "./config/env.js"
 import express from "express"
 import dotenv from "dotenv"
 import connectDB from "./config/db.js"
@@ -5,7 +6,6 @@ import cors from "cors"
 import userAuthRoutes from "./routes/userAuthRoutes.js"
 import addBlogRoutes from "./routes/addBlogRoutes.js"
 
-dotenv.config()
 const app = express()
 
 connectDB()
