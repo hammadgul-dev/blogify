@@ -7,6 +7,7 @@ import "react-quill-new/dist/quill.snow.css"
 import {useDispatch} from "react-redux"
 import {setMessage} from "../../Redux/Slice/NotificationSlice"
 import {useMutation} from "@tanstack/react-query"
+import apiFetch from "../../helper/apiFetch"
 
 let modules = {
   toolbar: [
@@ -84,7 +85,28 @@ function AddBlog({isEdit = false}) {
       setImgFile(null)
       setImgPreview("")
     },
-    onError: (e) => dispatch(setMessage(e || "Something Went Wrong")),
+    onError: (e) =>
+      dispatch(setMessage(e?.message || e || "Something Went Wrong")),
+  })
+
+  let handleGenerateDescription = useMutation({
+    mutationFn: async () => {
+      if (!blogInfo.title.trim()) throw "Please Enter A Title First"
+      let apiData = await apiFetch(
+        `${import.meta.env.VITE_BACKEND_URL}/add-blog/generate-description`,
+        {
+          method: "POST",
+          body: {title: blogInfo.title},
+        },
+      )
+      return apiData
+    },
+    onSuccess: (data) => {
+      setDescription(data.description)
+      dispatch(setMessage(data.message))
+    },
+    onError: (e) =>
+      dispatch(setMessage(e?.message || e || "Something Went Wrong")),
   })
 
   return (
@@ -155,8 +177,15 @@ function AddBlog({isEdit = false}) {
               />
             </div>
           </div>
-          <button className={style["ai-btn"]}>
-            <BsStars /> Generate with AI
+          <button
+            onClick={() => handleGenerateDescription.mutate()}
+            className={style["ai-btn"]}
+            disabled={handleGenerateDescription.isPending}
+          >
+            <BsStars />{" "}
+            {handleGenerateDescription.isPending
+              ? "Generating..."
+              : "Generate with AI"}
           </button>
         </div>
 
