@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
 let authSchema = new mongoose.Schema(
   {
-    userName: { type: String, trim: true, default: "Guest" },
+    userName: {type: String, trim: true, default: "Guest"},
     userEmail: {
       type: String,
       required: true,
@@ -10,10 +10,11 @@ let authSchema = new mongoose.Schema(
       trim: true,
       match: /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
     },
-    userPassword: { type: String, required: true, trim: true , minlength : 8 },
+    userPassword: {type: String, required: true, trim: true, minlength: 8},
+    aiDescription: {type: Number, default: 0},
   },
-  { timestamps: true },
-);
+  {timestamps: true},
+)
 
-let authModel = mongoose.model("user_auth", authSchema);
-export default authModel;
+let authModel = mongoose.model("user_auth", authSchema)
+export default authModel
