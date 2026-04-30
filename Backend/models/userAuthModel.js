@@ -12,6 +12,7 @@ let authSchema = new mongoose.Schema(
     },
     userPassword: {type: String, required: true, trim: true, minlength: 8},
     aiDescription: {type: Number, default: 0},
+    aiThumbnail: {type: Number, default: 0},
   },
   {timestamps: true},
 )
