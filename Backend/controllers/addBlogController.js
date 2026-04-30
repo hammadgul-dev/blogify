@@ -81,4 +81,42 @@ async function generateDescription(req, resp) {
   }
 }
 
-export {handleAddBlog, generateDescription}
+async function generateThumbnail(req, resp) {
+  try {
+    let {description} = req.body
+    if (!description)
+      return resp.status(400).json({message: "Description is required"})
+    if (description.length < 30)
+      return resp.status(400).json({message: "Description is Too Short"})
+
+    let findingUser = await authModel.findById(req.user.userId)
+    if (findingUser.aiThumbnail >= 3)
+      return resp.status(400).json({message: "AI Thumbnail Limit Reached"})
+
+    let apiResponse = await fetch(
+      "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          inputs: `Professional wide landscape blog thumbnail, high quality, cinematic photography style. Theme: ${description.slice(0, 150)}`,
+          parameters: {width: 1280, height: 640},
+        }),
+      },
+    )
+
+    let imageBuffer = await apiResponse.arrayBuffer()
+    let base64 = Buffer.from(imageBuffer).toString("base64")
+    await authModel.findByIdAndUpdate(req.user.userId, {
+      $inc: {aiThumbnail: 1},
+    })
+    return resp.status(200).json({image: `data:image/jpeg;base64,${base64}`})
+  } catch (e) {
+    return resp.status(500).json({message: "Failed To Generate Thumbnail"})
+  }
+}
+
+export {handleAddBlog, generateDescription, generateThumbnail}
