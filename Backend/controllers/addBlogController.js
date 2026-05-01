@@ -100,7 +100,7 @@ async function generateThumbnail(req, resp) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: `Ultra realistic cinematic 16:9 blog thumbnail photograph, professional studio quality, dramatic lighting, no text, no people, no faces, symbolic visual metaphor for: ${description.slice(0, 150)}. Shot on Canon EOS R5, f/2.8, golden hour lighting, high detail, 8K`,
+        prompt: `${process.env.THUMBNAIL_PROMPT} ${description.slice(0, 150)}`,
         num_steps: 8,
         width: 1024,
         height: 576,
