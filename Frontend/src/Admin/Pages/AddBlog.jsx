@@ -109,14 +109,47 @@ function AddBlog({isEdit = false}) {
       dispatch(setMessage(e?.message || e || "Something Went Wrong")),
   })
 
+  let handleAiThumbnail = useMutation({
+    mutationFn: async () => {
+      if (!description.trim()) throw "Description is required"
+      if (description.length < 30) throw "Description is Too Short"
+      let apiData = await apiFetch(
+        `${import.meta.env.VITE_BACKEND_URL}/add-blog/generate-thumbnail`,
+        {
+          method: "POST",
+          body: {description: description},
+        },
+      )
+      return apiData
+    },
+    onSuccess: async (data) => {
+      console.log(data)
+      setImgPreview(data.image)
+      let res = await fetch(data.image)
+      let blob = await res.blob()
+      let file = new File([blob], "ai-thumbnail.jpg", {type: "image/jpeg"})
+      setImgFile(file)
+    },
+    onError: (e) => {
+      dispatch(setMessage(e?.message || e || "Failed To Generate Thumbnail"))
+    },
+  })
+
   return (
     <div className={style["addblog"]}>
       <div className={style["addblog-card"]}>
         <div className={style["form-group"]}>
           <div className={style["label-row"]}>
             <label>Upload Thumbnail</label>
-            <button className={style["ai-img-btn"]}>
-              <BsStars /> Generate with AI
+            <button
+              className={style["ai-img-btn"]}
+              onClick={() => handleAiThumbnail.mutate()}
+              disabled={handleAiThumbnail.isPending}
+            >
+              <BsStars />{" "}
+              {handleAiThumbnail.isPending
+                ? "Generating..."
+                : "Generate with AI"}
             </button>
           </div>
           <div
