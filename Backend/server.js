@@ -5,6 +5,7 @@ import connectDB from "./config/db.js"
 import cors from "cors"
 import userAuthRoutes from "./routes/userAuthRoutes.js"
 import addBlogRoutes from "./routes/addBlogRoutes.js"
+import blogRoutes from "./routes/blogControllerRoutes.js"
 
 const app = express()
 
@@ -22,6 +23,7 @@ app.use(
 // Routes
 app.use("/auth", userAuthRoutes)
 app.use("/add-blog", addBlogRoutes)
+app.use("/blog", blogRoutes)
 
 app.use("/", (req, resp) => {
   resp.status(200).send("Welcome To HOME PAGE")
