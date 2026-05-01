@@ -59,7 +59,7 @@ async function generateDescription(req, resp) {
 
     let findingUser = await authModel.findById(req.user.userId)
     if (findingUser.aiDescription >= 5)
-      return resp.status(400).json({message: "Limit Reached"})
+      return resp.status(400).json({message: "AI Description Limit Reached"})
     let completion = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
       messages: [
@@ -90,31 +90,34 @@ async function generateThumbnail(req, resp) {
       return resp.status(400).json({message: "Description is Too Short"})
 
     let findingUser = await authModel.findById(req.user.userId)
-    if (findingUser.aiThumbnail >= 3)
+    if (findingUser.aiThumbnail >= 5)
       return resp.status(400).json({message: "AI Thumbnail Limit Reached"})
 
-    let apiResponse = await fetch(
-      "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          inputs: `Professional wide landscape blog thumbnail, high quality, cinematic photography style. Theme: ${description.slice(0, 150)}`,
-          parameters: {width: 1280, height: 640},
-        }),
+    let response = await fetch(`${process.env.CLOUDFLARE_API_URL}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.CLOUDFLARE_API_TOKEN}`,
+        "Content-Type": "application/json",
       },
-    )
-
-    let imageBuffer = await apiResponse.arrayBuffer()
-    let base64 = Buffer.from(imageBuffer).toString("base64")
-    await authModel.findByIdAndUpdate(req.user.userId, {
-      $inc: {aiThumbnail: 1},
+      body: JSON.stringify({
+        prompt: `Ultra realistic cinematic 16:9 blog thumbnail photograph, professional studio quality, dramatic lighting, no text, no people, no faces, symbolic visual metaphor for: ${description.slice(0, 150)}. Shot on Canon EOS R5, f/2.8, golden hour lighting, high detail, 8K`,
+        num_steps: 8,
+        width: 1024,
+        height: 576,
+      }),
     })
-    return resp.status(200).json({image: `data:image/jpeg;base64,${base64}`})
+
+    let jsonResp = await response.json()
+    let base64 = jsonResp.result.image
+    console.log(jsonResp)
+
+    await authModel.findByIdAndUpdate(req.user.userId, {$inc: {aiThumbnail: 1}})
+    return resp.status(200).json({
+      message: "Image Generated!",
+      image: `data:image/jpeg;base64,${base64}`,
+    })
   } catch (e) {
+    console.log(e)
     return resp.status(500).json({message: "Failed To Generate Thumbnail"})
   }
 }
