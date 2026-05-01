@@ -1,50 +1,49 @@
-import { useState } from "react";
-import style from "../Pages Style/Auth.module.css";
-import { FaBlog } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { useDispatch } from "react-redux";
-import { setMessage } from "../Redux/Slice/NotificationSlice";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import {useState} from "react"
+import style from "../Pages Style/Auth.module.css"
+import {FaBlog} from "react-icons/fa"
+import {FcGoogle} from "react-icons/fc"
+import {useDispatch} from "react-redux"
+import {setMessage} from "../Redux/Slice/NotificationSlice"
+import {useMutation} from "@tanstack/react-query"
+import {useNavigate} from "react-router-dom"
 
 function Auth() {
-  let dispatch = useDispatch();
-  let navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(false);
+  let dispatch = useDispatch()
+  let navigate = useNavigate()
+  const [isLogin, setIsLogin] = useState(false)
   let [signInfo, setSignupInfo] = useState({
     userName: "",
     userEmail: "",
     userPassword: "",
-  });
+  })
   let [loginInfo, setLoginInfo] = useState({
     userEmail: "",
     userPassword: "",
-  });
+  })
 
   function handleAuthForm() {
     if (!isLogin) {
       if (!signInfo.userName && !signInfo.userEmail && !signInfo.userPassword)
-        return dispatch(setMessage("All Fields Are Required"));
-      if (!signInfo.userName) return dispatch(setMessage("Name Is Required"));
-      if (!signInfo.userEmail) return dispatch(setMessage("Email Is Required"));
+        return dispatch(setMessage("All Fields Are Required"))
+      if (!signInfo.userName) return dispatch(setMessage("Name Is Required"))
+      if (!signInfo.userEmail) return dispatch(setMessage("Email Is Required"))
       if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(signInfo.userEmail))
-        return dispatch(setMessage("Invalid Email"));
+        return dispatch(setMessage("Invalid Email"))
       if (!signInfo.userPassword)
-        return dispatch(setMessage("Password Is Required"));
+        return dispatch(setMessage("Password Is Required"))
       if (signInfo.userPassword.length < 8)
-        return dispatch(setMessage("Password Too Short"));
-      signUpMutation.mutate(signInfo);
+        return dispatch(setMessage("Password Too Short"))
+      signUpMutation.mutate(signInfo)
     } else {
       if (!loginInfo.userEmail && !loginInfo.userPassword)
-        return dispatch(setMessage("All Fields Are Required"));
-      if (!loginInfo.userEmail)
-        return dispatch(setMessage("Email Is Required"));
+        return dispatch(setMessage("All Fields Are Required"))
+      if (!loginInfo.userEmail) return dispatch(setMessage("Email Is Required"))
       if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(loginInfo.userEmail))
-        return dispatch(setMessage("Invalid Email"));
+        return dispatch(setMessage("Invalid Email"))
       if (!loginInfo.userPassword)
-        return dispatch(setMessage("Password Is Required"));
+        return dispatch(setMessage("Password Is Required"))
       if (loginInfo.userPassword.length < 8)
-        return dispatch(setMessage("Password Too Short"));
+        return dispatch(setMessage("Password Too Short"))
       // login API call
     }
   }
@@ -55,25 +54,25 @@ function Auth() {
         `${import.meta.env.VITE_BACKEND_URL}/auth/signup`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {"Content-Type": "application/json"},
           body: JSON.stringify(signInfo),
         },
-      );
-      let apiData = await apiResp.json();
-      if (!apiResp.ok) throw new Error(apiData.message);
-      return apiData;
+      )
+      let apiData = await apiResp.json()
+      if (!apiResp.ok) throw new Error(apiData.message)
+      return apiData
     },
     onSuccess: (apiData) => {
-      localStorage.setItem("token", apiData.token);
-      localStorage.setItem("userName", apiData.newUser);
-      dispatch(setMessage(apiData.message));
-      setSignupInfo({ userName: "", userEmail: "", userPassword: "" });
-      setTimeout(() => navigate("/admin/dashboard", { replace: true }), 1200);
+      localStorage.setItem("token", apiData.token)
+      localStorage.setItem("userName", apiData.newUser)
+      dispatch(setMessage(apiData.message))
+      setSignupInfo({userName: "", userEmail: "", userPassword: ""})
+      setTimeout(() => navigate("/admin/dashboard", {replace: true}), 1200)
     },
     onError: (e) => {
-      dispatch(setMessage(e.message || "signUp Failed"));
+      dispatch(setMessage(e.message || "signUp Failed"))
     },
-  });
+  })
 
   return (
     <div className={style["auth-page"]}>
@@ -104,14 +103,14 @@ function Auth() {
               <label>Full Name</label>
               <input
                 type="text"
-                placeholder="John Doe"
+                placeholder="Your Name"
                 value={signInfo.userName}
                 spellCheck="false"
                 onChange={(e) =>
                   !isLogin &&
                   setSignupInfo({
                     ...signInfo,
-                    userName: e.target.value.trim(),
+                    userName: e.target.value,
                   })
                 }
               />
@@ -121,7 +120,7 @@ function Auth() {
             <label>Email</label>
             <input
               type="email"
-              placeholder="you@example.com"
+              placeholder="Your Email"
               value={!isLogin ? signInfo.userEmail : loginInfo.userEmail}
               spellCheck="false"
               onChange={(e) =>
@@ -141,7 +140,7 @@ function Auth() {
             <label>Password</label>
             <input
               type="password"
-              placeholder="••••••••"
+              placeholder="Your Password"
               value={!isLogin ? signInfo.userPassword : loginInfo.userPassword}
               spellCheck="false"
               onChange={(e) =>
@@ -173,7 +172,7 @@ function Auth() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Auth;
+export default Auth
