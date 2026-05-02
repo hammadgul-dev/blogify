@@ -11,6 +11,6 @@ let blogRoutes = express.Router()
 blogRoutes.get("/", authMiddleware, getAdminBlogs)
 blogRoutes.get("/:id", getSingleBlogs)
 blogRoutes.delete("/:id", authMiddleware, handleDeleteBlog)
-blogRoutes.patch("/:id/publish", authMiddleware, togglePublish)
+blogRoutes.patch("/:id", authMiddleware, togglePublish)
 
 export default blogRoutes

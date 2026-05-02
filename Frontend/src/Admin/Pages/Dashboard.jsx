@@ -37,6 +37,23 @@ function Dashboard() {
     },
   })
 
+  let togglePublish = useMutation({
+    mutationFn: async (id) => {
+      let apiData = await apiFetch(
+        `${import.meta.env.VITE_BACKEND_URL}/blog/${id}`,
+        {method: "PATCH"},
+      )
+      return apiData
+    },
+    onSuccess: (apiData) => {
+      dispatch(setMessage(apiData.message))
+      queryClient.invalidateQueries(["admin-blog"])
+    },
+    onError: (e) => {
+      dispatch(setMessage(e || "Failed To Update Status"))
+    },
+  })
+
   return (
     <div className={style["dashboard"]}>
       <div className={style["stats"]}>
@@ -92,6 +109,8 @@ function Dashboard() {
                             ? style["unpublish-btn"]
                             : style["publish-btn"]
                         }
+                        onClick={() => togglePublish.mutate(blog._id)}
+                        disabled={togglePublish.isPending}
                       >
                         {blog.isPublish ? "Unpublish" : "Publish"}
                       </button>
@@ -100,6 +119,7 @@ function Dashboard() {
                       <button
                         className={style["delete-btn"]}
                         onClick={() => blogDelete.mutate(blog._id)}
+                        disabled={blogDelete.isPending}
                       >
                         <MdDeleteOutline />
                       </button>
