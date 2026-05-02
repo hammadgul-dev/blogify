@@ -1,16 +1,32 @@
 import blogModel from "../models/addBlogModel.js"
 
-async function getAllBlog(req, resp) {
+async function getSingleBlogs(req, resp) {
   try {
-    let allBlog = await blogModel.find({userId: req.user.userId})
-    console.log(allBlog)
-    if (allBlog)
+    let {id} = req.params
+    let singleBlogs = await blogModel.findById(id)
+    console.log(singleBlogs)
+    if (singleBlogs)
       return resp
         .status(200)
-        .json({message: "Blogs Fetched!", allBlogPost: allBlog})
+        .json({message: "Blogs Fetched!", allBlogPost: singleBlogs})
   } catch (e) {
     return resp.status(500).json({message: "Failed To Fetch Blogs"})
   }
 }
 
-export {getAllBlog}
+async function getAdminBlogs(req, resp) {
+  try {
+    let blog = await blogModel
+      .find({userId: req.user.userId})
+      .select("title isPublish createdAt")
+    console.log(blog)
+    if (blog)
+      return resp
+        .status(200)
+        .json({message: "Blogs Fetched!", allBlogPost: blog})
+  } catch (e) {
+    return resp.status(500).json({message: "Failed To Fetch Blogs"})
+  }
+}
+
+export {getSingleBlogs, getAdminBlogs}
