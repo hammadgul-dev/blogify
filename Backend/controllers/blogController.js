@@ -38,4 +38,19 @@ async function handleDeleteBlog(req, resp) {
   }
 }
 
-export {getSingleBlogs, getAdminBlogs, handleDeleteBlog}
+async function togglePublish(req, resp) {
+  try {
+    let {id} = req.params
+    let blog = await blogModel.findById(id)
+    if (!blog) return resp.status(404).json({message: "Blog Not Found"})
+    blog.isPublish = !blog.isPublish
+    await blog.save()
+    return resp
+      .status(200)
+      .json({message: blog.isPublish ? "Blog Published!" : "Blog Unpublished!"})
+  } catch (e) {
+    return resp.status(500).json({message: "Failed To Update Status"})
+  }
+}
+
+export {getSingleBlogs, getAdminBlogs, handleDeleteBlog, togglePublish}
