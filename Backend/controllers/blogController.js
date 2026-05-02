@@ -8,7 +8,7 @@ async function getSingleBlogs(req, resp) {
     if (singleBlogs)
       return resp
         .status(200)
-        .json({message: "Blogs Fetched!", allBlogPost: singleBlogs})
+        .json({message: "Blogs Fetched!", singleBlogs: singleBlogs})
   } catch (e) {
     return resp.status(500).json({message: "Failed To Fetch Blogs"})
   }
@@ -21,9 +21,7 @@ async function getAdminBlogs(req, resp) {
       .select("title isPublish createdAt")
     console.log(blog)
     if (blog)
-      return resp
-        .status(200)
-        .json({message: "Blogs Fetched!", allBlogPost: blog})
+      return resp.status(200).json({message: "Blogs Fetched!", adminBlog: blog})
   } catch (e) {
     return resp.status(500).json({message: "Failed To Fetch Blogs"})
   }

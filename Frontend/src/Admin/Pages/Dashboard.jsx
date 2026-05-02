@@ -1,41 +1,19 @@
+import {useMutation, useQuery} from "@tanstack/react-query"
 import style from "../Pages Style/Dashboard.module.css"
 import {MdOutlinePublish} from "react-icons/md"
 import {MdOutlineUnpublished, MdDeleteOutline} from "react-icons/md"
-
-const tempBlogs = [
-  {
-    id: 1,
-    title: "The Rise of Artificial Intelligence",
-    date: "Wed Mar 26 2026",
-    status: "Published",
-  },
-  {
-    id: 2,
-    title: "Importance of Tourism",
-    date: "Wed Mar 26 2026",
-    status: "Published",
-  },
-  {
-    id: 3,
-    title: "The New Way of Study",
-    date: "Wed Mar 26 2026",
-    status: "Unpublished",
-  },
-  {
-    id: 4,
-    title: "Taxes on Luxury Houses",
-    date: "Wed Mar 26 2026",
-    status: "Published",
-  },
-  {
-    id: 5,
-    title: "Maximizing Returns in Startup",
-    date: "Wed Mar 26 2026",
-    status: "Unpublished",
-  },
-]
+import apiFetch from "../../helper/apiFetch"
 
 function Dashboard() {
+  let adminBlogs = useQuery({
+    queryKey: ["admin-blog"],
+    queryFn: async () => {
+      let apiData = await apiFetch(`${import.meta.env.VITE_BACKEND_URL}/blog`)
+      return apiData
+    },
+    refetchOnWindowFocus: false,
+  })
+
   return (
     <div className={style["dashboard"]}>
       <div className={style["stats"]}>
@@ -45,7 +23,10 @@ function Dashboard() {
           </span>
           <div className={style["stat-info"]}>
             <h3>Publish Blogs</h3>
-            <p>10</p>
+            <p>
+              {adminBlogs.data?.adminBlog?.filter((b) => b.isPublish).length ||
+                0}
+            </p>
           </div>
         </div>
         <div className={style["stat-card"]}>
@@ -54,7 +35,10 @@ function Dashboard() {
           </span>
           <div className={style["stat-info"]}>
             <h3>UnPublish Blogs</h3>
-            <p>10</p>
+            <p>
+              {adminBlogs.data?.adminBlog?.filter((b) => !b.isPublish).length ||
+                0}
+            </p>
           </div>
         </div>
       </div>
@@ -72,28 +56,37 @@ function Dashboard() {
               </tr>
             </thead>
             <tbody>
-              {tempBlogs.map((blog) => (
-                <tr key={blog.id}>
-                  <td className={style["title-cell"]}>{blog.title}</td>
-                  <td>{blog.date}</td>
-                  <td>
-                    <button
-                      className={
-                        blog.status === "Published"
-                          ? style["unpublish-btn"]
-                          : style["publish-btn"]
-                      }
-                    >
-                      {blog.status === "Published" ? "Unpublish" : "Publish"}
-                    </button>
-                  </td>
-                  <td>
-                    <button className={style["delete-btn"]}>
-                      <MdDeleteOutline />
-                    </button>
+              {Array.isArray(adminBlogs.data?.adminBlog) &&
+              adminBlogs.data?.adminBlog.length > 0 ? (
+                adminBlogs.data.adminBlog.map((blog) => (
+                  <tr key={blog._id}>
+                    <td className={style["title-cell"]}>{blog.title}</td>
+                    <td>{new Date(blog.createdAt).toLocaleDateString()}</td>
+                    <td>
+                      <button
+                        className={
+                          blog.isPublish
+                            ? style["unpublish-btn"]
+                            : style["publish-btn"]
+                        }
+                      >
+                        {blog.isPublish ? "Unpublish" : "Publish"}
+                      </button>
+                    </td>
+                    <td>
+                      <button className={style["delete-btn"]}>
+                        <MdDeleteOutline />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className={style["no-blogs"]}>
+                    No Blogs Found
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
