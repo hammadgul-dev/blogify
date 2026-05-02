@@ -26,6 +26,13 @@
   font-size: 33px;
 }
 
+.no-blogs {
+  text-align: center;
+  padding: 32px;
+  font-size: 25px;
+  color: gray;
+}
+
 .stat-info {
   display: flex;
   flex-direction: column;

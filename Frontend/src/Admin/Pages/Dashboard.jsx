@@ -1,10 +1,14 @@
-import {useMutation, useQuery} from "@tanstack/react-query"
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query"
+import {setMessage} from "../../Redux/Slice/NotificationSlice"
 import style from "../Pages Style/Dashboard.module.css"
 import {MdOutlinePublish} from "react-icons/md"
 import {MdOutlineUnpublished, MdDeleteOutline} from "react-icons/md"
 import apiFetch from "../../helper/apiFetch"
+import {useDispatch} from "react-redux"
 
 function Dashboard() {
+  let queryClient = useQueryClient()
+  let dispatch = useDispatch()
   let adminBlogs = useQuery({
     queryKey: ["admin-blog"],
     queryFn: async () => {
@@ -12,6 +16,25 @@ function Dashboard() {
       return apiData
     },
     refetchOnWindowFocus: false,
+  })
+
+  let blogDelete = useMutation({
+    mutationFn: async (id) => {
+      let apiData = await apiFetch(
+        `${import.meta.env.VITE_BACKEND_URL}/blog/${id}`,
+        {
+          method: "DELETE",
+        },
+      )
+      return apiData
+    },
+    onSuccess: (apiData) => {
+      dispatch(setMessage(apiData.message))
+      queryClient.invalidateQueries(["admin-blog"])
+    },
+    onError: (e) => {
+      dispatch(setMessage(e || "Failed To Delete Blog"))
+    },
   })
 
   return (
@@ -74,7 +97,10 @@ function Dashboard() {
                       </button>
                     </td>
                     <td>
-                      <button className={style["delete-btn"]}>
+                      <button
+                        className={style["delete-btn"]}
+                        onClick={() => blogDelete.mutate(blog._id)}
+                      >
                         <MdDeleteOutline />
                       </button>
                     </td>
@@ -83,7 +109,7 @@ function Dashboard() {
               ) : (
                 <tr>
                   <td colSpan="4" className={style["no-blogs"]}>
-                    No Blogs Found
+                    No Blogs Added Yet
                   </td>
                 </tr>
               )}
