@@ -1,16 +1,32 @@
 import blogModel from "../models/addBlogModel.js"
 
-async function getSingleBlogs(req, resp) {
+async function getBlogById(req, resp) {
   try {
     let {id} = req.params
-    let singleBlogs = await blogModel.findById(id)
-    console.log(singleBlogs)
-    if (singleBlogs)
-      return resp
-        .status(200)
-        .json({message: "Blogs Fetched!", singleBlogs: singleBlogs})
+    let blog = await blogModel.findById(id)
+    if (!blog) return resp.status(404).json({message: "Blog Not Found"})
+    return resp.status(200).json({message: "Blog Fetched!", blog})
   } catch (e) {
-    return resp.status(500).json({message: "Failed To Fetch Blogs"})
+    return resp.status(500).json({message: "Failed To Fetch Blog"})
+  }
+}
+
+async function updateBlog(req, resp) {
+  try {
+    let {id} = req.params
+    let {title, subtitle, description, category, thumbnail} = req.body
+
+    let updated = await blogModel.findByIdAndUpdate(
+      id,
+      {title, subtitle, description, category, thumbnail},
+      {new: true},
+    )
+
+    if (!updated) return resp.status(404).json({message: "Blog Not Found"})
+
+    return resp.status(200).json({message: "Blog Updated!", blog: updated})
+  } catch (e) {
+    return resp.status(500).json({message: "Failed To Update Blog"})
   }
 }
 
@@ -53,4 +69,4 @@ async function togglePublish(req, resp) {
   }
 }
 
-export {getSingleBlogs, getAdminBlogs, handleDeleteBlog, togglePublish}
+export {getBlogById, getAdminBlogs, handleDeleteBlog, togglePublish, updateBlog}
