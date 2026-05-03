@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom"
+import {createBrowserRouter} from "react-router-dom"
 import Home from "./Pages/Home"
 import Auth from "./Pages/Auth"
 import AdminLayout from "./Admin/Components/AdminLayout"
@@ -9,27 +9,27 @@ import EditBlogs from "./Admin/Pages/EditBlogs"
 import TrashBin from "./Admin/Pages/TrashBin"
 
 let routes = createBrowserRouter([
-    {
-        path: "/",
-        element: <Home />
-    },
-    {
-        path: "/auth",
-        element: <Auth />
-    },
-    {
-        path: "/admin",
-        element: <AdminLayout />,
-        children: [
-            { index: true, element: <Dashboard /> },
-            { path: "dashboard", element: <Dashboard /> },
-            { path: "add-blog", element: <AddBlog /> },
-            { path : "comments" , element : <Comments /> },
-            { path : "edit-blog" , element : <EditBlogs /> },
-            { path: "edit-blog/:id", element: <AddBlog /> },
-            { path: "trash", element: <TrashBin /> }
-        ]
-    },
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/auth",
+    element: <Auth />,
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      {index: true, element: <Dashboard />},
+      {path: "dashboard", element: <Dashboard />},
+      {path: "add-blog", element: <AddBlog />},
+      {path: "comments", element: <Comments />},
+      {path: "edit-blog", element: <EditBlogs />},
+      {path: "edit-blog/:id", element: <AddBlog isEdit={true} />},
+      {path: "trash", element: <TrashBin />},
+    ],
+  },
 ])
 
 export default routes
