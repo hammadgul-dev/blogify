@@ -54,6 +54,27 @@ function AddBlog({isEdit = false}) {
     }
   }, [blogData.data])
 
+  let updateFormData = useMutation({
+    mutationFn: async (formData) => {
+      let apiResp = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/blog/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+          },
+          body: formData,
+        },
+      )
+      let apiData = await apiResp.json()
+      if (!apiResp.ok) throw apiData.message
+      return apiData
+    },
+    onSuccess: (data) => dispatch(setMessage(data.message)),
+    onError: (e) =>
+      dispatch(setMessage(e?.message || e || "Something Went Wrong")),
+  })
+
   function handleFile(e) {
     let file = e.target.files[0]
     if (!file) return dispatch(setMessage("Files Not Found"))
@@ -62,7 +83,8 @@ function AddBlog({isEdit = false}) {
   }
 
   function handleSubmit() {
-    if (!imgFile) return dispatch(setMessage("Please upload a thumbnail"))
+    if (!isEdit && !imgFile)
+      return dispatch(setMessage("Please upload a thumbnail"))
     if (!blogInfo.title.trim()) return dispatch(setMessage("Title is required"))
     if (!blogInfo.subtitle.trim())
       return dispatch(setMessage("Subtitle is required"))
@@ -77,7 +99,11 @@ function AddBlog({isEdit = false}) {
     formData.append("subtitle", blogInfo.subtitle.trim())
     formData.append("description", description.trim())
     formData.append("category", blogInfo.category.trim().toLowerCase())
-    postFormData.mutate(formData)
+    if (isEdit) {
+      updateFormData.mutate(formData)
+    } else {
+      postFormData.mutate(formData)
+    }
   }
 
   let postFormData = useMutation({
