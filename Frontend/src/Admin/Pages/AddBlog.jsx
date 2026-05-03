@@ -1,13 +1,14 @@
 import style from "../Pages Style/AddBlog.module.css"
 import {MdCloudUpload} from "react-icons/md"
 import {BsStars} from "react-icons/bs"
-import {useState, useRef} from "react"
+import {useState, useRef, useEffect} from "react"
 import ReactQuill from "react-quill-new"
 import "react-quill-new/dist/quill.snow.css"
 import {useDispatch} from "react-redux"
 import {setMessage} from "../../Redux/Slice/NotificationSlice"
-import {useMutation} from "@tanstack/react-query"
 import apiFetch from "../../helper/apiFetch"
+import {useParams} from "react-router-dom"
+import {useQuery, useMutation} from "@tanstack/react-query"
 
 let modules = {
   toolbar: [
@@ -20,6 +21,7 @@ let modules = {
 }
 
 function AddBlog({isEdit = false}) {
+  let {id} = useParams()
   let dispatch = useDispatch()
   let imgRef = useRef()
   let [description, setDescription] = useState("")
@@ -30,6 +32,27 @@ function AddBlog({isEdit = false}) {
     subtitle: "",
     category: "",
   })
+
+  let blogData = useQuery({
+    queryKey: ["blog", id],
+    queryFn: async () => {
+      let apiData = await apiFetch(
+        `${import.meta.env.VITE_BACKEND_URL}/blog/${id}`,
+      )
+      console.log(apiData)
+      return apiData
+    },
+    refetchOnWindowFocus: false,
+  })
+
+  useEffect(() => {
+    if (blogData.data?.blog) {
+      let b = blogData.data.blog
+      setBlogInfo({title: b.title, subtitle: b.subtitle, category: b.category})
+      setDescription(b.description)
+      setImgPreview(b.thumbnail)
+    }
+  }, [blogData.data])
 
   function handleFile(e) {
     let file = e.target.files[0]
