@@ -7,12 +7,13 @@ import {
   togglePublish,
   updateBlog,
 } from "../controllers/blogController.js"
+import upload from "../middleware/upload.js"
 let blogRoutes = express.Router()
 
 blogRoutes.get("/", authMiddleware, getAdminBlogs)
 blogRoutes.get("/:id", authMiddleware, getBlogById)
 blogRoutes.delete("/:id", authMiddleware, handleDeleteBlog)
 blogRoutes.patch("/:id", authMiddleware, togglePublish)
-blogRoutes.put("/:id", authMiddleware, updateBlog)
+blogRoutes.put("/:id", authMiddleware, upload.single("thumbnail"), updateBlog)
 
 export default blogRoutes

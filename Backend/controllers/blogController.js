@@ -1,4 +1,5 @@
 import blogModel from "../models/addBlogModel.js"
+import {v2 as cloudinary} from "cloudinary"
 
 async function getBlogById(req, resp) {
   try {
@@ -14,16 +15,33 @@ async function getBlogById(req, resp) {
 async function updateBlog(req, resp) {
   try {
     let {id} = req.params
-    let {title, subtitle, description, category, thumbnail} = req.body
+    let {title, subtitle, description, category} = req.body
+    let file = req.file
+    let updateData = {title, subtitle, description, category}
 
-    let updated = await blogModel.findByIdAndUpdate(
-      id,
-      {title, subtitle, description, category, thumbnail},
-      {new: true},
-    )
+    if (file) {
+      cloudinary.config({
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET,
+      })
 
+      let uploadResult = await new Promise((resolve, reject) => {
+        cloudinary.uploader
+          .upload_stream(
+            {folder: "blogify/post-thumbnails"},
+            (error, result) => {
+              if (error) reject(error)
+              else resolve(result)
+            },
+          )
+          .end(file.buffer)
+      })
+      updateData.thumbnail = uploadResult.secure_url
+    }
+
+    let updated = await blogModel.findByIdAndUpdate(id, updateData, {new: true})
     if (!updated) return resp.status(404).json({message: "Blog Not Found"})
-
     return resp.status(200).json({message: "Blog Updated!", blog: updated})
   } catch (e) {
     return resp.status(500).json({message: "Failed To Update Blog"})
