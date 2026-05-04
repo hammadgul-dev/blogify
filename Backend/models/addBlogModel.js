@@ -9,6 +9,7 @@ let addBlogSchema = new mongoose.Schema(
     description: {type: String, required: true, trim: true},
     category: {type: String, required: true, trim: true},
     isPublish: {type: Boolean, default: false},
+    isDeleted: {type: Boolean, default: false},
     comments: [
       {
         name: {type: String, required: true, trim: true},
