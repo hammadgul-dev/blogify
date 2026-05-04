@@ -1,28 +1,43 @@
 import style from "../Pages Style/TrashBin.module.css"
-
-const tempTrashed = [
-  {id: 1, title: "The Rise of Artificial Intelligence in Modern Technology"},
-  {id: 2, title: "Importance of Tourism in Today's World"},
-  {id: 3, title: "The New Way of Study"},
-  {id: 4, title: "Taxes on Luxury Houses"},
-  {id: 5, title: "Maximizing Returns in Startup"},
-]
+import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query"
+import apiFetch from "../../helper/apiFetch"
+import {useDispatch} from "react-redux"
+import {setMessage} from "../../Redux/Slice/NotificationSlice"
 
 function TrashBin() {
+  let dispatch = useDispatch()
+  let queryClient = useQueryClient()
+
+  let trashBlogs = useQuery({
+    queryKey: ["trash-blogs"],
+    queryFn: async () => {
+      let apiData = await apiFetch(
+        `${import.meta.env.VITE_BACKEND_URL}/blog/trash`,
+      )
+      return apiData
+    },
+    refetchOnWindowFocus: false,
+  })
+
   return (
     <div className={style["trashbin"]}>
       <div className={style["trashbin-wrapper"]}>
         <h2>Trash Bin</h2>
         <div className={style["blog-list"]}>
-          {tempTrashed.map((blog) => (
-            <div key={blog.id} className={style["blog-row"]}>
-              <p>
-                <strong>Blog :</strong> {blog.title}
-              </p>
-              <button className={style["restore-btn"]}>Restore</button>
-              <button className={style["delete-btn"]}>Delete</button>
-            </div>
-          ))}
+          {Array.isArray(trashBlogs.data?.trashBlogs) &&
+          trashBlogs.data.trashBlogs.length > 0 ? (
+            trashBlogs.data.trashBlogs.map((blog) => (
+              <div key={blog._id} className={style["blog-row"]}>
+                <p>
+                  <strong>Blog :</strong> {blog.title}
+                </p>
+                <button className={style["restore-btn"]}>Restore</button>
+                <button className={style["delete-btn"]}>Delete</button>
+              </div>
+            ))
+          ) : (
+            <p className={style["no-blogs"]}>Trash Is Empty</p>
+          )}
         </div>
       </div>
     </div>
