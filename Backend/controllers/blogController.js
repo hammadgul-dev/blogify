@@ -93,4 +93,22 @@ async function togglePublish(req, resp) {
   }
 }
 
-export {getBlogById, getAdminBlogs, handleDeleteBlog, togglePublish, updateBlog}
+async function getTrashBlogs(req, resp) {
+  try {
+    let blogs = await blogModel
+      .find({userId: req.user.userId, isDeleted: true})
+      .select("title")
+    return resp.status(200).json({message: "Trash Fetched!", trashBlogs: blogs})
+  } catch (e) {
+    return resp.status(500).json({message: "Failed To Fetch Trash"})
+  }
+}
+
+export {
+  getBlogById,
+  getAdminBlogs,
+  handleDeleteBlog,
+  togglePublish,
+  updateBlog,
+  getTrashBlogs,
+}
