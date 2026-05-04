@@ -28,6 +28,13 @@
   overflow: hidden;
 }
 
+.no-blogs {
+  text-align: center;
+  padding: 32px;
+  font-size: 15px;
+  color: gray;
+}
+
 .blog-row {
   display: flex;
   align-items: center;
