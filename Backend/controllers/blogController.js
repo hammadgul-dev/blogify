@@ -51,7 +51,7 @@ async function updateBlog(req, resp) {
 async function getAdminBlogs(req, resp) {
   try {
     let blog = await blogModel
-      .find({userId: req.user.userId})
+      .find({userId: req.user.userId, isDeleted: false})
       .select("title isPublish createdAt")
     console.log(blog)
     if (blog)
@@ -64,9 +64,15 @@ async function getAdminBlogs(req, resp) {
 async function handleDeleteBlog(req, resp) {
   try {
     let {id} = req.params
-    let deletedBlog = await blogModel.findByIdAndDelete(id)
-    if (!deletedBlog) return resp.status(404).json({message: "Blog Not Found"})
-    return resp.status(200).json({message: "Blog Deleted!"})
+    let blog = await blogModel.findByIdAndUpdate(
+      id,
+      {isDeleted: true},
+      {new: true},
+    )
+    if (!blog) return resp.status(404).json({message: "Blog Not Found"})
+    return resp
+      .status(200)
+      .json({message: "Blog Moved To Trash!", title: blog.title})
   } catch (e) {
     return resp.status(500).json({message: "Failed To Delete Blog"})
   }
