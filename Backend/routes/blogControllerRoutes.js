@@ -14,10 +14,10 @@ let blogRoutes = express.Router()
 
 blogRoutes.get("/", authMiddleware, getAdminBlogs)
 blogRoutes.get("/trash", authMiddleware, getTrashBlogs)
+blogRoutes.get("/public", getPublicBlogs)
 blogRoutes.get("/:id", authMiddleware, getBlogById)
 blogRoutes.delete("/:id", authMiddleware, handleDeleteBlog)
 blogRoutes.patch("/:id", authMiddleware, togglePublish)
 blogRoutes.put("/:id", authMiddleware, upload.single("thumbnail"), updateBlog)
-blogRoutes.get("/public", getPublicBlogs)
 
 export default blogRoutes
