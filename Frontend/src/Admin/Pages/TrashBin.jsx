@@ -36,6 +36,23 @@ function TrashBin() {
     },
   })
 
+  let restoreBlogMutation = useMutation({
+    mutationFn: async (id) => {
+      let apiData = await apiFetch(
+        `${import.meta.env.VITE_BACKEND_URL}/trash/restore/${id}`,
+        {method: "PATCH"},
+      )
+      return apiData
+    },
+    onSuccess: (data) => {
+      dispatch(setMessage(data.message))
+      queryClient.invalidateQueries(["trash-blogs"])
+    },
+    onError: (e) => {
+      dispatch(setMessage(e || e.message))
+    },
+  })
+
   return (
     <div className={style["trashbin"]}>
       <div className={style["trashbin-wrapper"]}>
@@ -48,7 +65,12 @@ function TrashBin() {
                 <p>
                   <strong>Blog :</strong> {blog.title}
                 </p>
-                <button className={style["restore-btn"]}>Restore</button>
+                <button
+                  className={style["restore-btn"]}
+                  onClick={() => restoreBlogMutation.mutate(blog._id)}
+                >
+                  Restore
+                </button>
                 <button
                   className={style["delete-btn"]}
                   onClick={() => deleteBlogMutation.mutate(blog._id)}
