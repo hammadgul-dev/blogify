@@ -6,6 +6,7 @@ import cors from "cors"
 import userAuthRoutes from "./routes/userAuthRoutes.js"
 import addBlogRoutes from "./routes/addBlogRoutes.js"
 import blogRoutes from "./routes/blogControllerRoutes.js"
+import trashBinRoutes from "./routes/trashBinRoutes.js"
 
 const app = express()
 
@@ -24,6 +25,7 @@ app.use(
 app.use("/auth", userAuthRoutes)
 app.use("/add-blog", addBlogRoutes)
 app.use("/blog", blogRoutes)
+app.use("/trash", trashBinRoutes)
 
 app.use("/", (req, resp) => {
   resp.status(200).send("Welcome To HOME PAGE")
