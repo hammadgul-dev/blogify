@@ -104,6 +104,17 @@ async function getTrashBlogs(req, resp) {
   }
 }
 
+async function getPublicBlogs(req, resp) {
+  try {
+    let blog = await blogModel
+      .find({isDeleted: false, isPublish: true})
+      .select("thumbnail title subtitle")
+    return resp.status(200).json({message: true, blog})
+  } catch (e) {
+    return resp.status(500).json({message: "Failed to fetch blogs"})
+  }
+}
+
 export {
   getBlogById,
   getAdminBlogs,
@@ -111,4 +122,5 @@ export {
   togglePublish,
   updateBlog,
   getTrashBlogs,
+  getPublicBlogs,
 }
