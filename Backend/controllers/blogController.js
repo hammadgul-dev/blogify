@@ -109,7 +109,7 @@ async function getPublicBlogs(req, resp) {
     let blog = await blogModel
       .find({isDeleted: false, isPublish: true})
       .select("thumbnail title subtitle")
-    return resp.status(200).json({message: true, blog})
+    return resp.status(200).json({success: true, blog})
   } catch (e) {
     return resp.status(500).json({message: "Failed to fetch blogs"})
   }
