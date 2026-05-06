@@ -13,4 +13,21 @@ async function permanentDeleteBlog(req, resp) {
   }
 }
 
-export {permanentDeleteBlog}
+async function handleRestoreBlog(req, resp) {
+  try {
+    let {id} = req.params
+    let blog = await blogModel.findByIdAndUpdate(
+      id,
+      {isDeleted: false},
+      {new: true},
+    )
+    if (!blog) return resp.status(404).json({message: "Blog Not Found"})
+    return resp.status(200).json({message: "Blog Restored"})
+  } catch (e) {
+    return resp
+      .status(500)
+      .json({success: false, message: "Blog Restore Failed"})
+  }
+}
+
+export {permanentDeleteBlog, handleRestoreBlog}
