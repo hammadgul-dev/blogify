@@ -1,9 +1,13 @@
 import style from "../Pages Style/Comments.module.css"
 import {AiOutlineDelete} from "react-icons/ai"
-import {useQuery} from "@tanstack/react-query"
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query"
 import apiFetch from "../../helper/apiFetch"
+import {setMessage} from "../../Redux/Slice/NotificationSlice"
+import {useDispatch} from "react-redux"
 
 function Comments() {
+  let queryClient = useQueryClient()
+  let dispatch = useDispatch()
   let {data} = useQuery({
     queryKey: ["admin-comments"],
     queryFn: async () => {
@@ -13,6 +17,23 @@ function Comments() {
       return apiData
     },
     refetchOnWindowFocus: false,
+  })
+
+  let deleteCommentMutation = useMutation({
+    mutationFn: async ({blogId, commentId}) => {
+      let apiData = await apiFetch(
+        `${import.meta.env.VITE_BACKEND_URL}/comment/delete/${blogId}/${commentId}`,
+        {method: "DELETE"},
+      )
+      return apiData
+    },
+    onSuccess: (data) => {
+      dispatch(setMessage(data.message))
+      queryClient.invalidateQueries(["admin-comments"])
+    },
+    onError: (e) => {
+      dispatch(setMessage(e?.message || "Failed to delete comment"))
+    },
   })
 
   return (
@@ -42,7 +63,15 @@ function Comments() {
                           <strong>Comment :</strong> {c.comment}
                         </p>
                       </div>
-                      <div className={style["comment-actions"]}>
+                      <div
+                        className={style["comment-actions"]}
+                        onClick={() =>
+                          deleteCommentMutation.mutate({
+                            blogId: group._id,
+                            commentId: c._id,
+                          })
+                        }
+                      >
                         <AiOutlineDelete className={style["delete-icon"]} />
                       </div>
                     </div>
