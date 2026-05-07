@@ -32,4 +32,19 @@ async function getComments(req, resp) {
   }
 }
 
-export {addComments, getComments}
+async function deleteComment(req, resp) {
+  try {
+    let {blogId, commentId} = req.params
+    let blog = await blogModel.findByIdAndUpdate(
+      blogId,
+      {$pull: {comments: {_id: commentId}}},
+      {new: true},
+    )
+    if (!blog) return resp.status(404).json({message: "Blog Not Found"})
+    return resp.status(200).json({message: "Comment Deleted"})
+  } catch (e) {
+    return resp.status(500).json({message: "Failed To Delete Comment"})
+  }
+}
+
+export {addComments, getComments, deleteComment}
