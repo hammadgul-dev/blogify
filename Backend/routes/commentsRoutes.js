@@ -10,7 +10,7 @@ let commentRoutes = express.Router()
 
 commentRoutes.post("/:id", addComments)
 commentRoutes.get("/admin", authMiddleware, getComments)
-cocommentRoutes.delete(
+commentRoutes.delete(
   "/delete/:blogId/:commentId",
   authMiddleware,
   deleteComment,
