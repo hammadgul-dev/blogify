@@ -7,6 +7,7 @@ import AddBlog from "./Admin/Pages/AddBlog"
 import Comments from "./Admin/Pages/Comments"
 import EditBlogs from "./Admin/Pages/EditBlogs"
 import TrashBin from "./Admin/Pages/TrashBin"
+import BlogDetail from "./Pages/BlogDetail"
 
 let routes = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ let routes = createBrowserRouter([
   {
     path: "/auth",
     element: <Auth />,
+  },
+  {
+    path: "/blog/:id",
+    element: <BlogDetail />,
   },
   {
     path: "/admin",

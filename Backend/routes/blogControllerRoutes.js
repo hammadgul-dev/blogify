@@ -19,5 +19,6 @@ blogRoutes.get("/:id", authMiddleware, getBlogById)
 blogRoutes.delete("/:id", authMiddleware, handleDeleteBlog)
 blogRoutes.patch("/:id", authMiddleware, togglePublish)
 blogRoutes.put("/:id", authMiddleware, upload.single("thumbnail"), updateBlog)
+blogRoutes.get("/public/:id", getBlogById)
 
 export default blogRoutes
