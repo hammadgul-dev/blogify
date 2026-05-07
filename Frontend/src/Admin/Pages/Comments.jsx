@@ -42,43 +42,46 @@ function Comments() {
         <h2>Comments</h2>
         <div className={style["comments-list"]}>
           {Array.isArray(data?.blogs) && data.blogs.length > 0 ? (
-            data.blogs.map((group) => (
-              <div key={group._id} className={style["blog-group"]}>
-                <div className={style["blog-header"]}>
-                  <p>
-                    <strong>Blog :</strong> {group.title}
-                  </p>
-                  <button className={style["approve-all-btn"]}>
-                    Approve All
-                  </button>
-                </div>
-                <div className={style["comment-rows"]}>
-                  {group.comments.map((c) => (
-                    <div key={c._id} className={style["comment-row"]}>
-                      <div className={style["comment-info"]}>
-                        <p>
-                          <strong>Name :</strong> {c.name}
-                        </p>
-                        <p>
-                          <strong>Comment :</strong> {c.comment}
-                        </p>
-                      </div>
-                      <div
-                        className={style["comment-actions"]}
-                        onClick={() =>
-                          deleteCommentMutation.mutate({
-                            blogId: group._id,
-                            commentId: c._id,
-                          })
-                        }
-                      >
-                        <AiOutlineDelete className={style["delete-icon"]} />
-                      </div>
+            data.blogs.map(
+              (group) =>
+                group.comments.length > 0 && (
+                  <div key={group._id} className={style["blog-group"]}>
+                    <div className={style["blog-header"]}>
+                      <p>
+                        <strong>Blog :</strong> {group.title}
+                      </p>
+                      <button className={style["approve-all-btn"]}>
+                        Approve All
+                      </button>
                     </div>
-                  ))}
-                </div>
-              </div>
-            ))
+                    <div className={style["comment-rows"]}>
+                      {group.comments.map((c) => (
+                        <div key={c._id} className={style["comment-row"]}>
+                          <div className={style["comment-info"]}>
+                            <p>
+                              <strong>Name :</strong> {c.name}
+                            </p>
+                            <p>
+                              <strong>Comment :</strong> {c.comment}
+                            </p>
+                          </div>
+                          <div
+                            className={style["comment-actions"]}
+                            onClick={() =>
+                              deleteCommentMutation.mutate({
+                                blogId: group._id,
+                                commentId: c._id,
+                              })
+                            }
+                          >
+                            <AiOutlineDelete className={style["delete-icon"]} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ),
+            )
           ) : (
             <p>No comments yet</p>
           )}
