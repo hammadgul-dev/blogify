@@ -19,4 +19,17 @@ async function addComments(req, resp) {
   }
 }
 
-export {addComments}
+async function getComments(req, resp) {
+  try {
+    let blogs = await blogModel
+      .find({userId: req.user.userId, isDeleted: false})
+      .select("title comments")
+    return resp.status(200).json({success: true, blogs})
+  } catch (e) {
+    return resp
+      .status(500)
+      .json({success: false, message: "Failed to fetch comments"})
+  }
+}
+
+export {addComments, getComments}
