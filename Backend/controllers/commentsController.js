@@ -56,7 +56,9 @@ async function approveAllComment(req, resp) {
       {new: true},
     )
     if (!blog) return resp.status(404).json({message: "Blog Not Found"})
-    resp.status(200).json({message: "All Comments Approved", blog})
+    resp
+      .status(200)
+      .json({message: "All Comments Approved", comments: blog.comments})
   } catch (e) {
     return resp.status(500).json({message: "Failed To Approve Comment"})
   }
