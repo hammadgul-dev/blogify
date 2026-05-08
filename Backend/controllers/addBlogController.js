@@ -93,6 +93,23 @@ async function generateThumbnail(req, resp) {
     if (findingUser.aiThumbnail >= 5)
       return resp.status(400).json({message: "AI Thumbnail Limit Reached"})
 
+    let cleanDescription = description
+      .replace(/<[^>]*>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+
+    let promptCompletion = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      messages: [
+        {
+          role: "user",
+          content: `${process.env.GROQ_IMAGE_PROMPT} "${cleanDescription.slice(0, 400)}". Return only the prompt.`,
+        },
+      ],
+    })
+
+    let imagePrompt = promptCompletion.choices[0].message.content.trim()
+
     let response = await fetch(`${process.env.CLOUDFLARE_API_URL}`, {
       method: "POST",
       headers: {
@@ -100,7 +117,7 @@ async function generateThumbnail(req, resp) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: `${process.env.THUMBNAIL_PROMPT} ${description.slice(0, 150)}`,
+        prompt: `${process.env.THUMBNAIL_PROMPT} ${imagePrompt}`,
         num_steps: 8,
         width: 1024,
         height: 576,
@@ -109,7 +126,6 @@ async function generateThumbnail(req, resp) {
 
     let jsonResp = await response.json()
     let base64 = jsonResp.result.image
-    console.log(jsonResp)
 
     await authModel.findByIdAndUpdate(req.user.userId, {$inc: {aiThumbnail: 1}})
     return resp.status(200).json({
