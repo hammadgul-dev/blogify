@@ -2,10 +2,23 @@ import style from "../Components Style/Navbar.module.css"
 import {FaBlog} from "react-icons/fa"
 import {CiLight} from "react-icons/ci"
 import {useNavigate} from "react-router-dom"
-// import { MdOutlineDarkMode } from "react-icons/md";
+import {useQuery} from "@tanstack/react-query"
+import apiFetch from "../helper/apiFetch.js"
 
 function Navbar() {
   let navigate = useNavigate()
+
+  let {data} = useQuery({
+    queryKey: ["verify-user"],
+    queryFn: async () => {
+      let apiData = await apiFetch(
+        `${import.meta.env.VITE_BACKEND_URL}/auth/verify`,
+      )
+      return apiData
+    },
+    retry: false,
+    refetchOnWindowFocus: false,
+  })
 
   return (
     <div className={style["nav-section"]}>
@@ -25,7 +38,11 @@ function Navbar() {
         <span>
           <CiLight />
         </span>
-        <button onClick={() => navigate("/auth")}>Sign Up &rarr;</button>
+        {data?.user ? (
+          <button onClick={() => navigate("/admin")}>Admin &rarr;</button>
+        ) : (
+          <button onClick={() => navigate("/auth")}>Sign Up &rarr;</button>
+        )}
       </div>
     </div>
   )
