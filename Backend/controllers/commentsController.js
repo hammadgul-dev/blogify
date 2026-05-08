@@ -47,4 +47,19 @@ async function deleteComment(req, resp) {
   }
 }
 
-export {addComments, getComments, deleteComment}
+async function approveAllComment(req, resp) {
+  try {
+    let {blogId} = req.params
+    let blog = await blogModel.findByIdAndUpdate(
+      blogId,
+      {$set: {"comments.$[].isApproved": true}},
+      {new: true},
+    )
+    if (!blog) return resp.status(404).json({message: "Blog Not Found"})
+    resp.status(200).json({message: "All Comments Approved", blog})
+  } catch (e) {
+    return resp.status(500).json({message: "Failed To Approve Comment"})
+  }
+}
+
+export {addComments, getComments, deleteComment, approveAllComment}

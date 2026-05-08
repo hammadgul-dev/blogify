@@ -1,6 +1,7 @@
 import express from "express"
 import {
   addComments,
+  approveAllComment,
   deleteComment,
   getComments,
 } from "../controllers/commentsController.js"
@@ -15,5 +16,6 @@ commentRoutes.delete(
   authMiddleware,
   deleteComment,
 )
+commentRoutes.patch("/approve/:blogId", authMiddleware, approveAllComment)
 
 export default commentRoutes
