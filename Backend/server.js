@@ -8,12 +8,15 @@ import addBlogRoutes from "./routes/addBlogRoutes.js"
 import blogRoutes from "./routes/blogControllerRoutes.js"
 import trashBinRoutes from "./routes/trashBinRoutes.js"
 import commentRoutes from "./routes/commentsRoutes.js"
+import "./config/passport.js"
+import passport from "passport"
 
 const app = express()
 
 connectDB()
 
 app.use(express.json())
+app.use(passport.initialize())
 app.use(express.urlencoded({extended: false}))
 app.use(
   cors({
