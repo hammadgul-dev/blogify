@@ -21,8 +21,8 @@ function Footer() {
             <h2>Blogify</h2>
           </div>
           <p>
-            Write freely. Share boldly. Inspire endlessly. Blogify is your space
-            to tell the stories that matter.
+            Where ideas find their voice. <br /> Blogify is your space to write,
+            share, and inspire.
           </p>
         </div>
         <div className={style["footer-links"]}>
