@@ -11,11 +11,12 @@ function GoogleSuccess() {
     let params = new URLSearchParams(window.location.search)
     let token = params.get("token")
     let userName = params.get("userName")
+    let message = params.get("message")
 
     if (token) {
       localStorage.setItem("token", token)
       localStorage.setItem("userName", userName)
-      dispatch(setMessage("Login Successful"))
+      dispatch(setMessage(message))
       navigate("/admin/dashboard", {replace: true})
     } else {
       navigate("/auth", {replace: true})
