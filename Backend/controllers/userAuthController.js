@@ -102,4 +102,22 @@ async function verifyUser(req, resp) {
   }
 }
 
-export {handleSignupForm, handleLoginForm, verifyUser}
+async function googleAuthCallback(req, resp) {
+  try {
+    let user = req.user
+
+    let token = jwt.sign(
+      {userId: user._id, userEmail: user.userEmail},
+      process.env.JWT_SECRET,
+      {expiresIn: "7d"},
+    )
+
+    resp.redirect(
+      `${process.env.FRONTEND_URL}/auth/google/success?token=${token}&userName=${user.userName}`,
+    )
+  } catch (e) {
+    resp.redirect(`${process.env.FRONTEND_URL}/auth/failed`)
+  }
+}
+
+export {handleSignupForm, handleLoginForm, verifyUser, googleAuthCallback}
