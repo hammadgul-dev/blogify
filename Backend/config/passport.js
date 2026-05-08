@@ -19,9 +19,10 @@ passport.use(
             userEmail: profile.emails[0].value,
             userPassword: "google-auth",
           })
+          return done(null, {user, isNewUser: true})
         }
 
-        return done(null, user)
+        return done(null, {user, isNewUser: false})
       } catch (e) {
         return done(e, null)
       }

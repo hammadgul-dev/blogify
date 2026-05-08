@@ -104,7 +104,7 @@ async function verifyUser(req, resp) {
 
 async function googleAuthCallback(req, resp) {
   try {
-    let user = req.user
+    let {user, isNewUser} = req.user
 
     let token = jwt.sign(
       {userId: user._id, userEmail: user.userEmail},
@@ -112,8 +112,10 @@ async function googleAuthCallback(req, resp) {
       {expiresIn: "7d"},
     )
 
+    let message = isNewUser ? "Signup Successful" : "Login Successful"
+
     resp.redirect(
-      `${process.env.FRONTEND_URL}/auth/google/success?token=${token}&userName=${user.userName}`,
+      `${process.env.FRONTEND_URL}/auth/google/success?token=${token}&userName=${user.userName}&message=${message}`,
     )
   } catch (e) {
     resp.redirect(`${process.env.FRONTEND_URL}/auth/failed`)
