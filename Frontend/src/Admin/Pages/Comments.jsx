@@ -36,6 +36,24 @@ function Comments() {
     },
   })
 
+  let approveCommentMutation = useMutation({
+    mutationFn: async (id) => {
+      let apiData = await apiFetch(
+        `${import.meta.env.VITE_BACKEND_URL}/comment/approve/${id}`,
+        {method: "PATCH"},
+      )
+      console.log(apiData)
+      return apiData
+    },
+    onSuccess: (data) => {
+      dispatch(setMessage(data.message))
+      queryClient.invalidateQueries(["admin-comments"])
+    },
+    onError: (e) => {
+      dispatch(setMessage(e?.message || "Failed To Approve Comment"))
+    },
+  })
+
   return (
     <div className={style["comments"]}>
       <div className={style["comments-wrapper"]}>
@@ -50,7 +68,10 @@ function Comments() {
                       <p>
                         <strong>Blog :</strong> {group.title}
                       </p>
-                      <button className={style["approve-all-btn"]}>
+                      <button
+                        className={style["approve-all-btn"]}
+                        onClick={() => approveCommentMutation.mutate(group._id)}
+                      >
                         Approve All
                       </button>
                     </div>
