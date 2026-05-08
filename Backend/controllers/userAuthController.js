@@ -94,4 +94,12 @@ async function handleLoginForm(req, resp) {
   }
 }
 
-export {handleSignupForm, handleLoginForm}
+async function verifyUser(req, resp) {
+  try {
+    resp.status(200).json({message: "Verified", user: req.user})
+  } catch (e) {
+    return resp.status(500).json({message: "Failed To Verify"})
+  }
+}
+
+export {handleSignupForm, handleLoginForm, verifyUser}
