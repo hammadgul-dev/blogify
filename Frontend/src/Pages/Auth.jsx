@@ -44,7 +44,7 @@ function Auth() {
         return dispatch(setMessage("Password Is Required"))
       if (loginInfo.userPassword.length < 8)
         return dispatch(setMessage("Password Too Short"))
-      // login API call
+      loginMutation.mutate()
     }
   }
 
@@ -71,6 +71,32 @@ function Auth() {
     },
     onError: (e) => {
       dispatch(setMessage(e.message || "signUp Failed"))
+    },
+  })
+
+  let loginMutation = useMutation({
+    mutationFn: async () => {
+      let apiResp = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/auth/login`,
+        {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(loginInfo),
+        },
+      )
+      let apiData = await apiResp.json()
+      if (!apiResp.ok) throw new Error(apiData.message)
+      return apiData
+    },
+    onSuccess: (apiData) => {
+      localStorage.setItem("token", apiData.token)
+      localStorage.setItem("userName", apiData.userName)
+      dispatch(setMessage(apiData.message))
+      setLoginInfo({userEmail: "", userPassword: ""})
+      setTimeout(() => navigate("/admin/dashboard", {replace: true}), 1200)
+    },
+    onError: (e) => {
+      dispatch(setMessage(e.message || "Login Failed"))
     },
   })
 
@@ -156,7 +182,12 @@ function Auth() {
               }
             />
           </div>
-          <button className={style["google-btn"]}>
+          <button
+            className={style["google-btn"]}
+            onClick={() =>
+              (window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/google`)
+            }
+          >
             <FcGoogle />
             {isLogin ? "Login with Google" : "Sign Up with Google"}
           </button>

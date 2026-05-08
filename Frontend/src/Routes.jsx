@@ -8,6 +8,7 @@ import Comments from "./Admin/Pages/Comments"
 import EditBlogs from "./Admin/Pages/EditBlogs"
 import TrashBin from "./Admin/Pages/TrashBin"
 import BlogDetail from "./Pages/BlogDetail"
+import GoogleSuccess from "./Components/GoogleSuccess"
 
 let routes = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ let routes = createBrowserRouter([
   {
     path: "/blog/:id",
     element: <BlogDetail />,
+  },
+  {
+    path: "/auth/google/success",
+    element: <GoogleSuccess />,
   },
   {
     path: "/admin",
