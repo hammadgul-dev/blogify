@@ -46,7 +46,7 @@ function BlogDetail() {
         className={style["blog-content"]}
         dangerouslySetInnerHTML={{__html: data?.blog?.description}}
       />
-      <PostComment blogId={id} />
+      <PostComment blogId={data?.blog?._id} comments={data?.blog?.comments} />
       <Footer />
     </div>
   )
