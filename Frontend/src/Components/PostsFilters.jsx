@@ -1,16 +1,38 @@
 import style from "../Components Style/PostsFilters.module.css"
+import {useSelector, useDispatch} from "react-redux"
+import {setCategory} from "../Redux/Slice/PostsFilters"
 
 function PostsFilters() {
+  let dispatch = useDispatch()
+  let currCategory = useSelector((state) => state.postFilter.category)
+  console.log(currCategory)
+
+  let categories = [
+    "All",
+    "Tech",
+    "Business",
+    "Health",
+    "Travel",
+    "Education",
+    "Finance",
+    "Career",
+  ]
+
   return (
     <div className={style["postsFilter-section"]}>
-      <span>All</span>
-      <span>Tech</span>
-      <span>Business</span>
-      <span>Health</span>
-      <span>Travel</span>
-      <span>Education</span>
-      <span>Finance</span>
-      <span>Career</span>
+      {categories.map((cat) => (
+        <span
+          key={cat}
+          className={
+            currCategory === cat || (cat === "All" && !currCategory)
+              ? style["active"]
+              : ""
+          }
+          onClick={() => dispatch(setCategory(cat === "All" ? null : cat))}
+        >
+          {cat}
+        </span>
+      ))}
     </div>
   )
 }
