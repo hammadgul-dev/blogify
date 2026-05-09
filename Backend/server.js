@@ -10,11 +10,13 @@ import trashBinRoutes from "./routes/trashBinRoutes.js"
 import commentRoutes from "./routes/commentsRoutes.js"
 import "./config/passport.js"
 import passport from "passport"
+import helmet from "helmet"
 
 const app = express()
 
 connectDB()
 
+app.use(helmet())
 app.use(express.json())
 app.use(passport.initialize())
 app.use(express.urlencoded({extended: false}))
