@@ -101,7 +101,14 @@ function Auth() {
   })
 
   return (
-    <div className={style["auth-page"]}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+      }}
+    >
       <div className={style["auth-card"]}>
         <div className={style["auth-logo"]}>
           <FaBlog />
@@ -134,10 +141,7 @@ function Auth() {
                 spellCheck="false"
                 onChange={(e) =>
                   !isLogin &&
-                  setSignupInfo({
-                    ...signInfo,
-                    userName: e.target.value,
-                  })
+                  setSignupInfo({...signInfo, userName: e.target.value})
                 }
               />
             </div>
