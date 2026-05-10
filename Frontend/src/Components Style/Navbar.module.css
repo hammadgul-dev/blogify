@@ -1,74 +1,87 @@
 .nav-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 40px;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px;
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .left-section {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .logo span {
-    display: flex;
-    align-items: center;
-    font-size: 24px;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  color: var(--accent);
 }
 
 .logo h1 {
-    font-size: 22px;
-    font-weight: 700;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .right-section {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .right-section span {
-    display: flex;
-    align-items: center;
-    font-size: 22px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.right-section span:hover {
+  color: var(--accent);
 }
 
 @media (max-width: 768px) {
-    .nav-section {
-        padding: 12px 20px;
-    }
+  .nav-section {
+    padding: 12px 20px;
+  }
 
-    .logo h1 {
-        font-size: 18px;
-    }
+  .logo h1 {
+    font-size: 18px;
+  }
 
-    .logo span {
-        font-size: 20px;
-    }
+  .logo span {
+    font-size: 20px;
+  }
 
-    .right-section {
-        gap: 12px;
-    }
+  .right-section {
+    gap: 12px;
+  }
 
-    .right-section span {
-        font-size: 20px;
-    }
+  .right-section span {
+    font-size: 20px;
+  }
 }
 
 @media (max-width: 480px) {
-    .nav-section {
-        padding: 10px 16px;
-    }
+  .nav-section {
+    padding: 10px 16px;
+  }
 
-    .logo h1 {
-        font-size: 16px;
-    }
+  .logo h1 {
+    font-size: 16px;
+  }
 }
