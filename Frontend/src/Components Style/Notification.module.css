@@ -1,15 +1,17 @@
 .notification {
   position: fixed;
-  top: 15px;
+  top: 20px;
   right: 20px;
-  padding: 10px 20px;
-  border-radius: 8px;
+  padding: 12px 20px;
+  border-radius: 10px;
   font-size: 14px;
   font-weight: 500;
   z-index: 9999;
-  border: 2px solid gray;
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--accent);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   animation: slideIn 0.3s ease;
-  border: 2px solid red;
   max-width: 300px;
   word-wrap: break-word;
 }
