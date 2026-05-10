@@ -3,22 +3,32 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
   padding: 10px 40px;
   width: 100%;
-}
-
-.active {
-  background-color: black;
-  color: white;
+  background-color: var(--bg);
 }
 
 .postsFilter-section span {
   padding: 7px 20px;
   border-radius: 20px;
-  border: 1px solid gray;
+  border: 1px solid var(--border);
   font-size: 14px;
   cursor: pointer;
+  color: var(--text-secondary);
+  background-color: var(--bg-secondary);
+  transition: all 0.2s ease;
+}
+
+.postsFilter-section span:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.active {
+  background-color: var(--accent) !important;
+  color: var(--btn-text) !important;
+  border-color: var(--accent) !important;
 }
 
 @media (max-width: 768px) {
