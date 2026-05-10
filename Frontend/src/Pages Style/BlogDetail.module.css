@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  background-color: var(--bg);
 }
 
 .blog-header {
@@ -28,24 +29,28 @@
   font-weight: 600;
   padding: 4px 14px;
   border-radius: 20px;
-  border: 1px solid gray;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
 }
 
 .date {
   font-size: 13px;
   text-align: center;
   width: 100%;
+  color: var(--text-secondary);
 }
 
 .blog-header h1 {
   font-size: 40px;
   font-weight: 800;
   line-height: 1.2;
+  color: var(--text-primary);
 }
 
 .subtitle {
   font-size: 15px;
   line-height: 1.6;
+  color: var(--text-secondary);
 }
 
 .blog-img {
@@ -71,6 +76,7 @@
   width: 100%;
   overflow-wrap: break-word;
   word-break: break-word;
+  color: var(--text-primary);
 }
 
 .blog-content h2 {
@@ -89,11 +95,6 @@
   font-size: 15px;
   line-height: 1.8;
   margin-bottom: 12px;
-}
-
-.blog-content p {
-  font-size: 15px;
-  line-height: 1.8;
 }
 
 @media (max-width: 768px) {

@@ -11,6 +11,7 @@
 .comment-section h3 {
   font-size: 16px;
   font-weight: 700;
+  color: var(--text-primary);
 }
 
 .comment-form {
@@ -23,6 +24,7 @@
 .comment-form h4 {
   font-size: 14px;
   font-weight: 600;
+  color: var(--text-primary);
 }
 
 .comment-form input,
@@ -30,17 +32,6 @@
   width: 100%;
   padding: 10px 14px;
   font-size: 14px;
-  border-radius: 8px;
-  border: 1px solid gray;
-}
-
-.comment-form button {
-  width: fit-content;
-  padding: 10px 24px;
-  font-size: 14px;
-  font-weight: 700;
-  border-radius: 10px;
-  border: 1px solid gray;
 }
 
 .comments-list {
@@ -54,22 +45,25 @@
   flex-direction: column;
   gap: 4px;
   padding: 12px 14px;
-  border: 1px solid gray;
+  border: 1px solid var(--border);
   border-radius: 8px;
+  background-color: var(--bg-secondary);
 }
 
 .comment-name {
   font-size: 13px;
   font-weight: 600;
+  color: var(--text-primary);
 }
 
 .comment-text {
   font-size: 13px;
+  color: var(--text-secondary);
 }
 
 .no-comments {
   font-size: 13px;
-  color: gray;
+  color: var(--text-secondary);
 }
 
 @media (max-width: 768px) {
