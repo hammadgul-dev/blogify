@@ -1,49 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --bg: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #0f0f0f;
+  --text-secondary: #555555;
+  --border: #e0e0e0;
+  --accent: #6c63ff;
+  --accent-hover: #574fd6;
+  --btn-text: #ffffff;
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+}
+
+[data-theme="dark"] {
+  --bg: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --text-primary: #f0f0f0;
+  --text-secondary: #aaaaaa;
+  --border: #2a2a2a;
+  --accent: #7c74ff;
+  --accent-hover: #6c63ff;
+  --btn-text: #ffffff;
+  --card-bg: #1a1a1a;
+  --input-bg: #1a1a1a;
+}
+
 * {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    font-family: monospace;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 #root {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    max-width: 1366px;
-    min-height: 100vh;
-    margin: auto;
-    border: 2px solid springgreen;
+  display: flex;
+  flex-direction: column;
+  max-width: 1366px;
+  min-height: 100vh;
+  margin: auto;
 }
 
 button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    padding: 7px 14px;
-    border-radius: 10px;
-    border: 1px solid gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--accent);
+  color: var(--btn-text);
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--accent-hover);
 }
 
 input {
-    outline: none;
-    border: 1px solid gray;
+  outline: none;
+  border: 1px solid var(--border);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  transition: border 0.2s ease;
+}
+
+input:focus {
+  border-color: var(--accent);
 }
 
 textarea {
-    resize: none;
-    outline: none;
+  resize: none;
+  outline: none;
+  border: 1px solid var(--border);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+textarea:focus {
+  border-color: var(--accent);
 }
 
 select {
-    border-radius: 6px;
-    cursor: pointer;
-    outline: none;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid var(--border);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 option {
-    cursor: pointer;
-    background-color: aliceblue;
+  cursor: pointer;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
 }
