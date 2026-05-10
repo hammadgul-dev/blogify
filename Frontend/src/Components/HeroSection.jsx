@@ -2,8 +2,10 @@ import style from "../Components Style/HeroSection.module.css"
 import {PiShootingStarDuotone} from "react-icons/pi"
 import {setSearch} from "../Redux/Slice/SearchSlice"
 import {useDispatch} from "react-redux"
+import {useState} from "react"
 
 function HeroSection() {
+  let [input, setInput] = useState("")
   let dispatch = useDispatch()
 
   return (
@@ -29,11 +31,12 @@ function HeroSection() {
         <input
           type="text"
           placeholder="Search Blog Posts"
-          onChange={(e) =>
-            dispatch(setSearch(e.target.value.trim().toLowerCase()))
-          }
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
         />
-        <button>Search</button>
+        <button onClick={() => dispatch(setSearch(input.trim().toLowerCase()))}>
+          Search
+        </button>
       </div>
     </div>
   )
