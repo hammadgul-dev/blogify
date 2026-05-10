@@ -14,7 +14,6 @@ function PostLists() {
     },
     refetchOnWindowFocus: false,
   })
-  console.log(data)
 
   let filteredBlogs = currCategory
     ? data?.blog?.filter((b) => b.category === currCategory.toLowerCase())
