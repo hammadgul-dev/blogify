@@ -296,8 +296,18 @@ function AddBlog({isEdit = false}) {
         </div>
 
         <div className={style["submit-row"]}>
-          <button onClick={handleSubmit} className={style["submit-btn"]}>
-            {isEdit ? "Update Blog" : "Add Blog"}
+          <button
+            onClick={handleSubmit}
+            className={style["submit-btn"]}
+            disabled={postFormData.isPending || updateFormData.isPending}
+          >
+            {isEdit
+              ? updateFormData.isPending
+                ? "Updating..."
+                : "Update Blog"
+              : postFormData.isPending
+                ? "Adding..."
+                : "Add Blog"}
           </button>
         </div>
       </div>
