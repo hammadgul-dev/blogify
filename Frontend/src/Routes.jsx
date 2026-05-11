@@ -9,6 +9,7 @@ import EditBlogs from "./Admin/Pages/EditBlogs"
 import TrashBin from "./Admin/Pages/TrashBin"
 import BlogDetail from "./Pages/BlogDetail"
 import GoogleSuccess from "./Components/GoogleSuccess"
+import NotFound from "./Pages/NotFound"
 
 let routes = createBrowserRouter([
   {
@@ -40,6 +41,7 @@ let routes = createBrowserRouter([
       {path: "trash", element: <TrashBin />},
     ],
   },
+  {path: "*", element: <NotFound />},
 ])
 
 export default routes
