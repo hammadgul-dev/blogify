@@ -3,6 +3,9 @@
   flex-direction: column;
   gap: 24px;
   width: 100%;
+  padding: 24px;
+  background-color: var(--bg-secondary);
+  min-height: 100%;
 }
 
 .stats {
@@ -18,19 +21,21 @@
   gap: 16px;
   padding: 12px 28px;
   border-radius: 12px;
-  border: 1px solid gray;
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
   min-width: 220px;
 }
 
 .stat-card svg {
   font-size: 33px;
+  color: var(--accent);
 }
 
 .no-blogs {
   text-align: center;
   padding: 32px;
   font-size: 25px;
-  color: gray;
+  color: var(--text-secondary);
 }
 
 .stat-info {
@@ -41,11 +46,13 @@
 
 .stat-info h3 {
   font-size: 13px;
+  color: var(--text-secondary);
 }
 
 .stat-info p {
   font-size: 28px;
   font-weight: 700;
+  color: var(--text-primary);
 }
 
 .table-section {
@@ -58,13 +65,15 @@
 .table-section h2 {
   font-size: 18px;
   font-weight: 700;
+  color: var(--text-primary);
 }
 
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
-  border: 1px solid gray;
+  border: 1px solid var(--border);
   border-radius: 12px;
+  background-color: var(--card-bg);
 }
 
 .table {
@@ -73,7 +82,8 @@
 }
 
 .table thead tr {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--bg-secondary);
 }
 
 .table th {
@@ -81,28 +91,34 @@
   text-align: left;
   font-size: 12px;
   font-weight: 700;
+  color: var(--text-secondary);
 }
 
 .table td {
   padding: 14px 16px;
   font-size: 13px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
 }
 
 .table tbody tr:last-child td {
   border-bottom: none;
 }
 
+.table tbody tr:hover {
+  background-color: var(--bg-secondary);
+}
+
 .published {
   font-size: 12px;
   font-weight: 600;
-  color: green;
+  color: #38a169;
 }
 
 .unpublished {
   font-size: 12px;
   font-weight: 600;
-  color: red;
+  color: #e53e3e;
 }
 
 .title-cell {
@@ -117,10 +133,17 @@
   font-size: 12px;
   font-weight: 600;
   border-radius: 20px;
-  border: 1px solid green;
-  color: green;
+  border: 1px solid #38a169;
+  color: #38a169;
+  background-color: transparent;
   cursor: pointer;
   white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.publish-btn:hover {
+  opacity: 0.7;
+  background-color: transparent;
 }
 
 .unpublish-btn {
@@ -128,10 +151,17 @@
   font-size: 12px;
   font-weight: 600;
   border-radius: 20px;
-  border: 1px solid red;
-  color: red;
+  border: 1px solid #e53e3e;
+  color: #e53e3e;
+  background-color: transparent;
   cursor: pointer;
   white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.unpublish-btn:hover {
+  opacity: 0.7;
+  background-color: transparent;
 }
 
 .actions {
@@ -151,6 +181,13 @@
   font-size: 20px;
   cursor: pointer;
   padding: 4px;
+  color: #e53e3e;
+  transition: opacity 0.2s ease;
+}
+
+.delete-btn:hover {
+  opacity: 0.7;
+  background-color: transparent;
 }
 
 @media (max-width: 922px) {
