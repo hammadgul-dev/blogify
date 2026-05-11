@@ -205,23 +205,12 @@
   }
 
   .table th:nth-child(2),
-  .table td:nth-child(2),
-  .table th:nth-child(3),
-  .table td:nth-child(3) {
-    display: none;
-  }
-
-  .table th:nth-child(2),
   .table td:nth-child(2) {
-    width: 100%;
+    display: none;
   }
 
   .actions {
     width: auto;
-  }
-
-  .actions button:first-child {
-    display: none;
   }
 }
 
