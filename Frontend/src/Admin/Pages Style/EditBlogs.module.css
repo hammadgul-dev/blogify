@@ -4,6 +4,7 @@
   height: 100%;
   overflow-y: auto;
   padding: 24px;
+  background-color: var(--bg-secondary);
 }
 
 .editblogs-wrapper {
@@ -17,6 +18,7 @@
 .editblogs-wrapper h2 {
   font-size: 18px;
   font-weight: 700;
+  color: var(--text-primary);
 }
 
 .blog-list {
@@ -24,7 +26,8 @@
   flex-direction: column;
   width: 100%;
   border-radius: 12px;
-  border: 1px solid gray;
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
   overflow: hidden;
   min-height: 130px;
 }
@@ -33,7 +36,7 @@
   text-align: center;
   padding: 32px;
   font-size: 15px;
-  color: gray;
+  color: var(--text-secondary);
 }
 
 .blog-row {
@@ -42,7 +45,12 @@
   justify-content: space-between;
   gap: 16px;
   padding: 16px 20px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.2s ease;
+}
+
+.blog-row:hover {
+  background-color: var(--bg-secondary);
 }
 
 .blog-row:last-child {
@@ -52,6 +60,7 @@
 .blog-row p {
   font-size: 14px;
   flex: 1;
+  color: var(--text-primary);
 }
 
 .edit-btn {
@@ -59,9 +68,20 @@
   font-size: 13px;
   font-weight: 600;
   border-radius: 20px;
-  border: 1px solid gray;
+  border: 1px solid var(--border);
+  background-color: transparent;
+  color: var(--text-primary);
   white-space: nowrap;
   cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.edit-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: transparent;
 }
 
 @media (max-width: 768px) {
