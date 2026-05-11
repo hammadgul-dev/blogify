@@ -5,6 +5,7 @@
   height: 100%;
   overflow-y: auto;
   padding: 32px 40px;
+  background-color: var(--bg-secondary);
 }
 
 .addblog-card {
@@ -13,8 +14,9 @@
   gap: 22px;
   width: 100%;
   padding: 36px 40px;
-  border-radius: 10px;
-  border: 1px solid gray;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
   height: fit-content;
 }
 
@@ -28,6 +30,7 @@
 .form-group label {
   font-size: 13px;
   font-weight: 600;
+  color: var(--text-secondary);
 }
 
 .label-row {
@@ -40,6 +43,7 @@
 .label-row label {
   font-size: 13px;
   font-weight: 600;
+  color: var(--text-secondary);
 }
 
 .ai-img-btn {
@@ -50,7 +54,18 @@
   font-size: 12px;
   font-weight: 600;
   border-radius: 8px;
-  border: 1px solid gray;
+  background-color: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.ai-img-btn:hover {
+  border-color: var(--accent);
+  background-color: transparent;
+  color: var(--accent);
 }
 
 .ai-img-btn svg {
@@ -63,8 +78,6 @@
   width: 100%;
   padding: 11px 16px;
   font-size: 14px;
-  border-radius: 8px;
-  border: 1px solid gray;
 }
 
 .upload-box {
@@ -77,9 +90,16 @@
   width: 100%;
   height: 320px;
   border-radius: 12px;
-  border: 1px dashed gray;
+  border: 1px dashed var(--border);
   cursor: pointer;
   font-size: 13px;
+  color: var(--text-secondary);
+  background-color: var(--bg-secondary);
+  transition: border-color 0.2s ease;
+}
+
+.upload-box:hover {
+  border-color: var(--accent);
 }
 
 .upload-box svg {
@@ -103,6 +123,34 @@
   height: 206px;
 }
 
+/* ReactQuill dark mode fix */
+:global([data-theme="dark"]) .editor :global(.ql-toolbar) {
+  background-color: var(--bg-secondary);
+  border-color: var(--border);
+}
+
+:global([data-theme="dark"]) .editor :global(.ql-container) {
+  background-color: var(--input-bg);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+:global([data-theme="dark"]) .editor :global(.ql-editor.ql-blank::before) {
+  color: var(--text-secondary);
+}
+
+:global([data-theme="dark"]) .editor :global(.ql-stroke) {
+  stroke: var(--text-secondary);
+}
+
+:global([data-theme="dark"]) .editor :global(.ql-fill) {
+  fill: var(--text-secondary);
+}
+
+:global([data-theme="dark"]) .editor :global(.ql-picker-label) {
+  color: var(--text-secondary);
+}
+
 .ai-btn {
   display: flex;
   align-items: center;
@@ -112,7 +160,18 @@
   font-size: 13px;
   font-weight: 600;
   border-radius: 8px;
-  border: 1px solid gray;
+  background-color: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.ai-btn:hover {
+  border-color: var(--accent);
+  background-color: transparent;
+  color: var(--accent);
 }
 
 .ai-btn svg {
@@ -138,6 +197,7 @@
   font-weight: 600;
   white-space: nowrap;
   padding-top: 22px;
+  color: var(--text-primary);
 }
 
 .publish-row label {
@@ -161,7 +221,6 @@
   font-size: 14px;
   font-weight: 700;
   border-radius: 10px;
-  border: 1px solid gray;
 }
 
 @media (max-width: 857px) {
@@ -225,10 +284,5 @@
 
   .submit-row {
     justify-content: center;
-  }
-
-  .textarea-wrapper button {
-    width: 93%;
-    font-size: 10px;
   }
 }
