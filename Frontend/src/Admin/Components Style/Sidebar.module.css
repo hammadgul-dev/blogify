@@ -5,7 +5,8 @@
   width: 220px;
   min-width: 220px;
   padding: 24px 12px;
-  border: 1px solid gray;
+  border-right: 1px solid var(--border);
+  background-color: var(--bg);
 }
 
 .sidebar-top {
@@ -28,6 +29,15 @@
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
+  color: var(--text-secondary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.sidebar-item:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .sidebar-item svg {
@@ -35,8 +45,19 @@
   min-width: 18px;
 }
 
+.active-item {
+  background-color: var(--bg-secondary);
+  color: var(--accent);
+  font-weight: 600;
+}
+
 .logout {
-  color: red;
+  color: #e53e3e;
+}
+
+.logout:hover {
+  background-color: #fff5f5;
+  color: #c53030;
 }
 
 @media (max-width: 768px) {
