@@ -1,5 +1,5 @@
 import {createRoot} from "react-dom/client"
-import "./Pages Style/Home.css"
+import "./PagesStyle/Home.css"
 import {RouterProvider} from "react-router-dom"
 import routes from "./Routes"
 import {Provider} from "react-redux"
