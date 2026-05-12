@@ -6,7 +6,7 @@ import PostCards from "./PostCards"
 function PostLists() {
   let currCategory = useSelector((state) => state.postFilter.category)
 
-  let {data} = useQuery({
+  let {data, isLoading} = useQuery({
     queryKey: ["public-post"],
     queryFn: async () => {
       let res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/blog/public`)
@@ -14,6 +14,15 @@ function PostLists() {
     },
     refetchOnWindowFocus: false,
   })
+
+  if (isLoading)
+    return (
+      <div className={style["blogList-section"]}>
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className={style["skeleton-card"]} />
+        ))}
+      </div>
+    )
 
   let filteredBlogs = currCategory
     ? data?.blog?.filter((b) => b.category === currCategory.toLowerCase())
