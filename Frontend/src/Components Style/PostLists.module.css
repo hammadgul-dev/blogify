@@ -5,7 +5,13 @@
   padding: 20px 40px;
   width: 100%;
   min-height: 400px;
+  max-height: 700px;
+  overflow-y: auto;
   background-color: var(--bg);
+}
+
+.blogList-section::-webkit-scrollbar {
+  width: 0;
 }
 
 .no-blogs {
