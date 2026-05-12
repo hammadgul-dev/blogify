@@ -39,3 +39,5 @@ app.use("/", (req, resp) => {
 })
 
 app.listen(process.env.PORT || 5000)
+
+export default app
