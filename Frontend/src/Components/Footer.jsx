@@ -1,4 +1,4 @@
-import style from "../Components Style/Footer.module.css"
+import style from "../ComponentsStyle/Footer.module.css"
 import {FaBlog} from "react-icons/fa"
 import {FaInstagram, FaXTwitter, FaFacebook, FaYoutube} from "react-icons/fa6"
 import {useNavigate} from "react-router-dom"

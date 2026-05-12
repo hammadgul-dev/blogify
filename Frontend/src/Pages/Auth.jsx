@@ -1,5 +1,5 @@
 import {useState} from "react"
-import style from "../Pages Style/Auth.module.css"
+import style from "../PagesStyle/Auth.module.css"
 import {FaBlog} from "react-icons/fa"
 import {FcGoogle} from "react-icons/fc"
 import {useDispatch} from "react-redux"

@@ -1,4 +1,4 @@
-import style from "../Components Style/Navbar.module.css"
+import style from "../ComponentsStyle/Navbar.module.css"
 import {FaBlog} from "react-icons/fa"
 import {IoSunnyOutline} from "react-icons/io5"
 import {useNavigate} from "react-router-dom"

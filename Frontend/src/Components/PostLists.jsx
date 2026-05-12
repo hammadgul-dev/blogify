@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query"
 import {useSelector} from "react-redux"
-import style from "../Components Style/PostLists.module.css"
+import style from "../ComponentsStyle/PostLists.module.css"
 import PostCards from "./PostCards"
 
 function PostLists() {

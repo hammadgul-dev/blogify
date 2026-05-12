@@ -1,5 +1,5 @@
 import {useState} from "react"
-import style from "../Components Style/PostComment.module.css"
+import style from "../ComponentsStyle/PostComment.module.css"
 import {useMutation} from "@tanstack/react-query"
 import {setMessage} from "../Redux/Slice/NotificationSlice.js"
 import {useDispatch} from "react-redux"

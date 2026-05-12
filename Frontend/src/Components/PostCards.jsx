@@ -1,4 +1,4 @@
-import style from "../Components Style/PostCards.module.css"
+import style from "../ComponentsStyle/PostCards.module.css"
 import img from "../assets/1.jpg"
 import {useNavigate} from "react-router-dom"
 

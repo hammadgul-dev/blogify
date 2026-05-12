@@ -1,4 +1,4 @@
-import style from "../Components Style/HeroSection.module.css"
+import style from "../ComponentsStyle/HeroSection.module.css"
 import {PiShootingStarDuotone} from "react-icons/pi"
 
 function HeroSection() {

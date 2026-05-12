@@ -1,4 +1,4 @@
-import style from "../Components Style/PostsFilters.module.css"
+import style from "../ComponentsStyle/PostsFilters.module.css"
 import {useSelector, useDispatch} from "react-redux"
 import {setCategory} from "../Redux/Slice/PostsFilters"
 

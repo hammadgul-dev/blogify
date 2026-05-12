@@ -1,4 +1,4 @@
-import style from "../Pages Style/BlogDetail.module.css"
+import style from "../PagesStyle/BlogDetail.module.css"
 import Navbar from "../Components/Navbar"
 import img1 from "../assets/1.jpg"
 import PostComment from "../Components/PostComment"
