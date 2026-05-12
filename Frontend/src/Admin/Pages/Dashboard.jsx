@@ -1,6 +1,6 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query"
 import {setMessage} from "../../Redux/Slice/NotificationSlice"
-import style from "../Pages Style/Dashboard.module.css"
+import style from "../PagesStyle/Dashboard.module.css"
 import {MdOutlinePublish} from "react-icons/md"
 import {MdOutlineUnpublished, MdDeleteOutline} from "react-icons/md"
 import apiFetch from "../../helper/apiFetch"

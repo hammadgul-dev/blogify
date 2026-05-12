@@ -1,4 +1,4 @@
-import style from "../Pages Style/EditBlogs.module.css"
+import style from "../PagesStyle/EditBlogs.module.css"
 import {useNavigate} from "react-router-dom"
 import {useQuery} from "@tanstack/react-query"
 import apiFetch from "../../helper/apiFetch"

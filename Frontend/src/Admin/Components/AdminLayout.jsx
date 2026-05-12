@@ -1,4 +1,4 @@
-import style from "../Components Style/AdminLayout.module.css"
+import style from "../ComponentsStyle/AdminLayout.module.css"
 import Sidebar from "./Sidebar"
 import Navbar from "../../Components/Navbar"
 import {Outlet, useNavigate} from "react-router-dom"

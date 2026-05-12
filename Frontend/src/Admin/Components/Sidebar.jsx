@@ -1,4 +1,4 @@
-import style from "../Components Style/Sidebar.module.css"
+import style from "../ComponentsStyle/Sidebar.module.css"
 import {MdDashboard} from "react-icons/md"
 import {MdAddBox} from "react-icons/md"
 import {MdEditDocument} from "react-icons/md"

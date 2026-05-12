@@ -1,4 +1,4 @@
-import style from "../Pages Style/TrashBin.module.css"
+import style from "../PagesStyle/TrashBin.module.css"
 import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query"
 import apiFetch from "../../helper/apiFetch"
 import {useDispatch} from "react-redux"

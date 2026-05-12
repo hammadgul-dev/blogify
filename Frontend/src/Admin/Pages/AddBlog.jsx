@@ -1,4 +1,4 @@
-import style from "../Pages Style/AddBlog.module.css"
+import style from "../PagesStyle/AddBlog.module.css"
 import {MdCloudUpload} from "react-icons/md"
 import {BsStars} from "react-icons/bs"
 import {useState, useRef, useEffect} from "react"

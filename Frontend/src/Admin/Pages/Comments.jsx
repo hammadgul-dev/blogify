@@ -1,4 +1,4 @@
-import style from "../Pages Style/Comments.module.css"
+import style from "../PagesStyle/Comments.module.css"
 import {AiOutlineDelete} from "react-icons/ai"
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query"
 import apiFetch from "../../helper/apiFetch"
