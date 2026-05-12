@@ -122,8 +122,8 @@ function AddBlog({isEdit = false}) {
       if (!apiResp.ok) throw apiData.message
       return apiData
     },
-    onSuccess: () => {
-      dispatch(setMessage("Blog added successfully!"))
+    onSuccess: (data) => {
+      dispatch(setMessage(data?.message || "Blog added successfully!"))
       setBlogInfo({
         title: "",
         subtitle: "",

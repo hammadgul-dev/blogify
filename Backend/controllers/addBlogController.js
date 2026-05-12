@@ -46,7 +46,7 @@ async function handleAddBlog(req, resp) {
 
     return resp
       .status(201)
-      .json({message: "Blog Added Successfully", blog: newBlog})
+      .json({message: "Blog Added — Not Published Yet", blog: newBlog})
   } catch (e) {
     return resp.status(500).json({message: "Error During Blog Adding"})
   }
