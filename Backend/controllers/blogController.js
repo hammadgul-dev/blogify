@@ -53,7 +53,6 @@ async function getAdminBlogs(req, resp) {
     let blog = await blogModel
       .find({userId: req.user.userId, isDeleted: false})
       .select("title isPublish createdAt")
-    console.log(blog)
     if (blog)
       return resp.status(200).json({message: "Blogs Fetched!", adminBlog: blog})
   } catch (e) {

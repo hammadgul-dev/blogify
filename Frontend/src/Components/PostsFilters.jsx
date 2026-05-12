@@ -5,7 +5,6 @@ import {setCategory} from "../Redux/Slice/PostsFilters"
 function PostsFilters() {
   let dispatch = useDispatch()
   let currCategory = useSelector((state) => state.postFilter.category)
-  console.log(currCategory)
 
   let categories = [
     "All",

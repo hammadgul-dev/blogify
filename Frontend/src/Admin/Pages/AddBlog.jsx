@@ -39,7 +39,6 @@ function AddBlog({isEdit = false}) {
       let apiData = await apiFetch(
         `${import.meta.env.VITE_BACKEND_URL}/blog/${id}`,
       )
-      console.log(apiData)
       return apiData
     },
     refetchOnWindowFocus: false,
@@ -172,7 +171,6 @@ function AddBlog({isEdit = false}) {
       return apiData
     },
     onSuccess: async (data) => {
-      console.log(data)
       setImgPreview(data.image)
       let res = await fetch(data.image)
       let blob = await res.blob()

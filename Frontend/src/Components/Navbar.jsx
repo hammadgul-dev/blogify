@@ -12,7 +12,6 @@ function Navbar() {
   let navigate = useNavigate()
   let dispatch = useDispatch()
   let mode = useSelector((state) => state.theme.mode)
-  console.log(mode)
 
   let {data} = useQuery({
     queryKey: ["verify-user"],

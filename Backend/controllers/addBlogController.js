@@ -133,7 +133,6 @@ async function generateThumbnail(req, resp) {
       image: `data:image/jpeg;base64,${base64}`,
     })
   } catch (e) {
-    console.log(e)
     return resp.status(500).json({message: "Failed To Generate Thumbnail"})
   }
 }

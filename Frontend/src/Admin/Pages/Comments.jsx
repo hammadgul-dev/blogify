@@ -42,7 +42,6 @@ function Comments() {
         `${import.meta.env.VITE_BACKEND_URL}/comment/approve/${id}`,
         {method: "PATCH"},
       )
-      console.log(apiData)
       return apiData
     },
     onSuccess: (data) => {
