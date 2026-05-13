@@ -2,7 +2,7 @@ import {configureStore} from "@reduxjs/toolkit"
 import notificationReducer from "./Slice/NotificationSlice"
 import postsFilterReducer from "./Slice/PostsFilters"
 import searchSliceReducer from "./Slice/SearchSlice"
-import themeReducer from "./Slice/themeSlice"
+import themeReducer from "./Slice/ThemeSlice"
 
 let blogifyStore = configureStore({
   reducer: {
