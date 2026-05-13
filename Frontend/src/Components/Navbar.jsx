@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom"
 import {useQuery} from "@tanstack/react-query"
 import apiFetch from "../helper/apiFetch.js"
 import {useDispatch, useSelector} from "react-redux"
-import {toggleTheme} from "../Redux/Slice/ThemeSlice"
+import {toggleTheme} from "../Redux/Slice/ThemeSlice.js"
 import {MdOutlineDarkMode} from "react-icons/md"
 
 function Navbar() {
