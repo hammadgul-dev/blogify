@@ -1,6 +1,5 @@
 import "./config/env.js"
 import express from "express"
-import dotenv from "dotenv"
 import connectDB from "./config/db.js"
 import cors from "cors"
 import userAuthRoutes from "./routes/userAuthRoutes.js"
@@ -13,8 +12,6 @@ import passport from "passport"
 import helmet from "helmet"
 
 const app = express()
-
-connectDB()
 
 app.use(helmet())
 app.use(express.json())
@@ -38,6 +35,11 @@ app.use("/", (req, resp) => {
   resp.status(200).send("Welcome To HOME PAGE")
 })
 
-app.listen(process.env.PORT || 5000)
+const startServer = async () => {
+  await connectDB()
+  app.listen(process.env.PORT || 5000)
+}
+
+startServer()
 
 export default app
