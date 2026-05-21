@@ -12,7 +12,7 @@ function PostLists() {
       let res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/blog/public`)
       return res.json()
     },
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   })
 
   if (isLoading)
