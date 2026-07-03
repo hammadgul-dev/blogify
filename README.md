@@ -156,10 +156,3 @@ Both frontend and backend are deployed on **Vercel**.
 ---
 
 ---
-
-## 👨‍💻 Developer
-
-**Hammad Gul** — MERN Stack Developer
-
-- 🐙 [GitHub](https://github.com/hammadgul-dev)
-- 💼 [LinkedIn](https://linkedin.com/in/hammadgul-dev)
