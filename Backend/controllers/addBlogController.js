@@ -125,6 +125,7 @@ async function generateThumbnail(req, resp) {
     })
 
     let jsonResp = await response.json()
+    console.log("CLOUDFLARE:", jsonResp)
     let base64 = jsonResp.result.image
 
     await authModel.findByIdAndUpdate(req.user.userId, {$inc: {aiThumbnail: 1}})
