@@ -118,7 +118,7 @@ async function generateThumbnail(req, resp) {
       },
       body: JSON.stringify({
         prompt: `${process.env.THUMBNAIL_PROMPT} ${imagePrompt}`,
-        num_steps: 8,
+        steps: 8,
         width: 1024,
         height: 576,
       }),
