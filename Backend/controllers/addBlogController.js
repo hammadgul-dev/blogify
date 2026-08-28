@@ -61,7 +61,7 @@ async function generateDescription(req, resp) {
     if (findingUser.aiDescription >= 5)
       return resp.status(400).json({message: "AI Description Limit Reached"})
     let completion = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-120b",
       messages: [
         {
           role: "user",
@@ -99,7 +99,7 @@ async function generateThumbnail(req, resp) {
       .trim()
 
     let promptCompletion = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-120b",
       messages: [
         {
           role: "user",
