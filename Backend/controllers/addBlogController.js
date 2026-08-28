@@ -117,15 +117,12 @@ async function generateThumbnail(req, resp) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: `${process.env.THUMBNAIL_PROMPT} ${imagePrompt}`,
-        steps: 8,
-        width: 1024,
-        height: 576,
-      }),
+      prompt: `${process.env.THUMBNAIL_PROMPT} ${imagePrompt}`,
+      steps: 8,
+  }),
     })
 
     let jsonResp = await response.json()
-    console.log("CLOUDFLARE:", jsonResp)
     let base64 = jsonResp.result.image
 
     await authModel.findByIdAndUpdate(req.user.userId, {$inc: {aiThumbnail: 1}})
